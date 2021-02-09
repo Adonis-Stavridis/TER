@@ -87,23 +87,77 @@ puissance de calcul, et donc cette technique de rendu associée avec
 l'eye-tracking permettrait de faire des gains en puissance de calcul mais aussi
 en qualité de rendu, en plus des fonctionnalités de tout capteur basique.
 
-\bigskip
-Tout le matériel de niveau professionnel est déjà présent. Cependant ces produits sont assez récents et donc assez chers.
-
 % ----------------------------------------------------------------------------
 % LOGICIELS
 % ----------------------------------------------------------------------------
 
 \section{Logiciels}
 
-Plusieurs logiciels existent déjà afin d'effectuer de l'oculométrie avec une
-webcam/camera basique. Certains sont open-source et gratuits. Effectuer une
-comparaison de ces logiciels, permettrait de comprendre les avantages et
-inconvénients de chacune.
+De nos jours, la plupart des gens possédent un appareil électronique avec une
+caméra intergrée, que ce soit une webcam ou la caméra d'un smartphone. Il n'est
+pas nécessaire d'acheter du matériel professionnel pour profiter de la
+technologie d'eye-tracking. Il existe plusieurs logiciels et bibliothèques qui
+permettent d'effectuer de l'oculométrie, facilement et gratuitement aussi.
+
+\subsection{OpenCV}
+
+L'une des bibliothèques les plus utilisées dans le traitement d'images en temps
+réel et en vision par ordinateur ou Computer Vision est OpenCV \cite{opencv}.
+Elle propose des fonctionnalités pour traiter des données brutes d'images, mais
+aussi une grande variété d'outils issus de l'état de l'art en vision des
+ordinateurs (détection de visage par exemple) et des algorithmes d'apprentissage
+artificiel. En tout, c'est une bibliothèque très compléte, pour la majorité des
+domaines de la vision par ordinateur, mais pas forcément spécialisée dans
+l'oculométrie. Il est possible toutefois d'écrire des algorithmes pour suivre
+le regard grace aux outils mis à disposition par la bibliothèque. Il existe
+également de jeux de données assez grands mis à disposition en ligne, tel que
+NVGaze \cite{nvgaze} de NVidia, pour entrainer des réseaux de neurones à
+éstimer le regard grace à des images \cite{gaze_tracking}. OpenCV propose plein
+d'outils de visualisation des données en temps réel, mais aucun pour leur
+exploitation.
+
+\bigskip
+Le grand avantage de OpenCV est son age et popularité. Elle est la bibliothèque
+de référence dans le domaine de la vision par ordinateur, propose parmi des
+outils très optimisés, tout en restant bien documenté. C'est aussi un projet
+open-source, et c'est pour cela qu'elle rassemble une grande communauté.
+Puisqu'elle n'est pas spécialisée dans l'eye-tracking, elle ne propose pas
+d'outils d'analyse et de visualisation de données, nécessaires en oculométrie.
 
 \subsection{PyGaze}
 
+Une autre bibliothèque très intéressante est PyGaze \cite{pygaze}. C'est une
+toolbox permettant de suivre le regard sur un écran grace à une caméra ou
+webcam. Elle propose également des outils pour analyser les données
+enregistrées, lors d'une séance d'eye-tracking. Ces outils permettent de créer
+plusieurs types d'images pour suivre le regard au fur et à mesure du temps.
+Parmi ces images se trouvent des cartes de fixations, des heatmap et des schémas
+du chemin du regard. Elle permettent de facilement comprendre les données et
+d'en tirer des conclusions plus rapidement. En plus, la bibliothèque PyGaze peut
+être utilisée avec la SDK de Tobii pour profiter de toutes les fonctionnalités
+des produits Tobii.
+
+\bigskip
+Cette bibliothèque est donc idéale pour visualiser les données récupérées grace
+àl'oculométrie, de façon simple et efficace. Cette libraire est assez bien
+documentée aussi. PyGaze est donc vraiment intéressante à utiliser, en
+combinaison avec les capteurs Tobii pour tirer profit d'un maximum de données
+et créer des images de synthése les plus concluantes possibles. Ces-dernieres
+sont très importantes pour permettre de tirer les bonnes conclusions.
+
+\begin{figure}[htpb]
+  \includegraphics[width=\textwidth,keepaspectratio=true]{heatmap.png}
+  \caption{Exemple de heatmap sur une page de recherche sur Google}
+\end{figure}
+
 \subsection{GazeParser}
+
+
+
+\begin{itemize}
+  \item NVGaze
+  \item https://imotions.com/blog/10-terms-metrics-eye-tracking/
+\end{itemize}
 
 % ----------------------------------------------------------------------------
 % CONCLUSION
