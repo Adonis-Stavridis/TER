@@ -14,19 +14,20 @@
 
 \begin{document}
 
-% ----------------------------------------------------------------------------
+% ------------------------------------------------------------------------------
 % TITLEPAGE
-% ----------------------------------------------------------------------------
+% ------------------------------------------------------------------------------
 
 \maketitle
 \tableofcontents
 \pagebreak
 
-% ----------------------------------------------------------------------------
+% ------------------------------------------------------------------------------
 % INTRODUCTION
-% ----------------------------------------------------------------------------
+% ------------------------------------------------------------------------------
 
 \section{Introduction}
+
 L'eye-tracking \cite{wiki:eye_tracking}, ou oculométrie, est une technologie
 assez récente qui détermine la position du regard d'un individu dans un
 environment virtuel. Elle établie alors une nouvelle interface entre Homme et
@@ -50,11 +51,11 @@ permettrait de livrer des résultats beaucoup plus fiables pour certains
 domaines, et ainsi pousser à l'avancement des recherches sur le comportement
 humain.
 
-% ----------------------------------------------------------------------------
+% ------------------------------------------------------------------------------
 % CAPTEURS
-% ----------------------------------------------------------------------------
+% ------------------------------------------------------------------------------
 
-\section{Capteurs d'oculométrie}
+\section{Capteurs}
 
 L'eye-tracking est permis grace à des capteurs spéciaux qui envoient des rayons
 infrarouges vers les yeux d'un individu. Ils sont infrarouges car ils ne sont
@@ -65,7 +66,6 @@ ce soit un écran ou un monde virtuel.
 
 \bigskip
 Il existe trois types de capteurs d'oculométrie sur la marché actuellement.
-
 \begin{itemize}
   \item Des capteurs pour écrans : ce sont les capteurs les plus basiques. Ils
         sont placés au-dessus ou en-dessous d'un écran et orientés vers les yeux
@@ -91,15 +91,16 @@ Il existe trois types de capteurs d'oculométrie sur la marché actuellement.
 \bigskip
 La plupart des produits liés à l'eye-tracking sont distribués par des
 entreprises telles que Tobii \cite{tobii} et HTC Vice \cite{htc_vive_pro_eye}.
-Ces solutions peuvent être utilisés dans plusieurs domaines : les capteurs pour
-écrans peuvent être utile pour étudier le regard d'un individu sur une page web,
-par exemple, et ainsi déterminer les régions les plus attrayantes ou non. Les
-lunettes avec capteurs intégrées sont plutôt utilisés dans le monde
-professionnel, dans les métiers de l'artisanal, dans la médicine ou le pilotage.
-Les casques de réalité virtuelle avec capteurs intégrés seraient utilisés dans
-des situations d'entrainement ou des circonstances pas facilement réalisables
-dans le monde réel. Certains produits similaires peuvent aussi être utilisés
-pour assister à des personnes en situatio de handicap et à mobilité réduite.
+Ces solutions peuvent être utilisés dans plusieurs domaines \cite{yt:tobii_vr}
+: les capteurs pour écrans peuvent être utile pour étudier le regard d'un
+individu sur une page web, par exemple, et ainsi déterminer les régions les
+plus attrayantes ou non. Les lunettes avec capteurs intégrées sont plutôt
+utilisés dans le monde professionnel, dans les métiers de l'artisanal, dans la
+médicine ou le pilotage. Les casques de réalité virtuelle avec capteurs
+intégrés seraient utilisés dans des situations d'entrainement ou des
+circonstances pas facilement réalisables dans le monde réel. Certains produits
+similaires peuvent aussi être utilisés pour assister à des personnes en
+situatio de handicap et à mobilité réduite.
 
 \bigskip
 Il existe alors une grande variété des capteurs, certains plus spécialisés dans
@@ -108,75 +109,118 @@ suivi est d'autant plus utile pour effectuer des recherches. Les capteurs sont
 fournis avec des logiciels capables de produire toutes les données nécessaires
 pour les analyser.
 
-% ----------------------------------------------------------------------------
-% LOGICIELS
-% ----------------------------------------------------------------------------
+% ------------------------------------------------------------------------------
+% ANALYSE DES DONNÉES
+% ------------------------------------------------------------------------------
 
-\section{Logiciels}
+\section{Analyse des données}
 
-De nos jours, la plupart des gens possédent un appareil électronique avec une
-caméra intergrée, que ce soit une webcam ou la caméra d'un smartphone. Il n'est
-pas nécessaire d'acheter du matériel professionnel pour profiter de la
-technologie d'eye-tracking. Il existe plusieurs logiciels et bibliothèques qui
-permettent d'effectuer de l'oculométrie, facilement et gratuitement aussi.
+Après avoir récupéré les données brutes d'une séance d'oculométrie, il serait
+intéressant des les analyser afin d'en tirer des conclusions pertinantes. Les
+données sont une série de nombres, représentants les positions du regard dans un
+environment, et sont donc difficilement compréhensibles. Pour cela, il serait
+beaucoup plus intéressant de transformer les données en des réprésentations
+graphiques de différents types. Il existe différentes mesures et termes
+utilisés pour analyser le regard \cite{imotions:metrics}, chacune organisant
+les données de façon à avoir une analyse compléte, étudiant tous les aspects du
+regard.
 
-\subsection{OpenCV}
+\subsection{Points de fixations}
 
-L'une des bibliothèques les plus utilisées dans le traitement d'images en temps
-réel et en vision par ordinateur ou Computer Vision est OpenCV \cite{opencv}.
-Elle propose des fonctionnalités pour traiter des données brutes d'images, mais
-aussi une grande variété d'outils issus de l'état de l'art en vision des
-ordinateurs (détection de visage par exemple) et des algorithmes d'apprentissage
-artificiel. En tout, c'est une bibliothèque très compléte, pour la majorité des
-domaines de la vision par ordinateur, mais pas forcément spécialisée dans
-l'oculométrie. Il est possible toutefois d'écrire des algorithmes pour suivre
-le regard grace aux outils mis à disposition par la bibliothèque. Il existe
-également de jeux de données assez grands mis à disposition en ligne, tel que
-NVGaze \cite{nvgaze} de NVidia, pour entrainer des réseaux de neurones à
-éstimer le regard grace à des images \cite{gaze_tracking}. OpenCV propose plein
-d'outils de visualisation des données en temps réel, mais aucun pour leur
-exploitation.
-
-\bigskip
-Le grand avantage de OpenCV est son age et popularité. Elle est la bibliothèque
-de référence dans le domaine de la vision par ordinateur, propose parmi des
-outils très optimisés, tout en restant bien documenté. C'est aussi un projet
-open-source, et c'est pour cela qu'elle rassemble une grande communauté.
-Puisqu'elle n'est pas spécialisée dans l'eye-tracking, elle ne propose pas
-d'outils d'analyse et de visualisation de données, nécessaires en oculométrie.
-
-\subsection{PyGaze}
-
-Une autre bibliothèque très intéressante est PyGaze \cite{pygaze}. C'est une
-toolbox permettant de suivre le regard sur un écran grace à une caméra ou
-webcam. Elle propose également des outils pour analyser les données
-enregistrées, lors d'une séance d'eye-tracking. Ces outils permettent de créer
-plusieurs types d'images pour suivre le regard au fur et à mesure du temps.
-Parmi ces images se trouvent des cartes de fixations, des heatmap et des schémas
-du chemin du regard. Elle permettent de facilement comprendre les données et
-d'en tirer des conclusions plus rapidement. En plus, la bibliothèque PyGaze peut
-être utilisée avec la SDK de Tobii pour profiter de toutes les fonctionnalités
-des produits Tobii.
-
-\bigskip
-Cette bibliothèque est donc idéale pour visualiser les données récupérées grace
-àl'oculométrie, de façon simple et efficace. Cette libraire est assez bien
-documentée aussi. PyGaze est donc vraiment intéressante à utiliser, en
-combinaison avec les capteurs Tobii pour tirer profit d'un maximum de données
-et créer des images de synthése les plus concluantes possibles. Ces-dernieres
-sont très importantes pour permettre de tirer les bonnes conclusions.
+\subsection{Heatmaps}
 
 \begin{figure}[htpb]
   \includegraphics[width=\textwidth,keepaspectratio=true]{heatmap.png}
   \caption{Exemple de heatmap sur une page de recherche sur Google}
 \end{figure}
 
+\subsection{Zones d'intérêt}
+
+\subsection{Temps jusqu'à la première fixation}
+
+\subsection{Temps écoulé}
+
+\subsection{Ratio}
+
+\subsection{Séquence de fixation}
+
+\subsection{Nombre de visites}
+
+\subsection{Durée de première fixation}
+
+\subsection{Durée de fixation moyenne}
+
+% ------------------------------------------------------------------------------
+% LOGICIELS
+% ------------------------------------------------------------------------------
+
+\section{Logiciels}
+
+\subsection{GazePointer}
+
+\subsection{Ogama}
+
+\subsection{PyGaze}
+
+\subsection{TurkerGaze}
+
 \subsection{GazeParser}
+
+% De nos jours, la plupart des gens possédent un appareil électronique avec une
+% caméra intergrée, que ce soit une webcam ou la caméra d'un smartphone. Il n'est
+% pas nécessaire d'acheter du matériel professionnel pour profiter de la
+% technologie d'eye-tracking. Il existe plusieurs logiciels et bibliothèques qui
+% permettent d'effectuer de l'oculométrie, facilement et gratuitement aussi.
+
+% \subsection{OpenCV}
+
+% L'une des bibliothèques les plus utilisées dans le traitement d'images en temps
+% réel et en vision par ordinateur ou Computer Vision est OpenCV \cite{opencv}.
+% Elle propose des fonctionnalités pour traiter des données brutes d'images, mais
+% aussi une grande variété d'outils issus de l'état de l'art en vision des
+% ordinateurs (détection de visage par exemple) et des algorithmes d'apprentissage
+% artificiel. En tout, c'est une bibliothèque très compléte, pour la majorité des
+% domaines de la vision par ordinateur, mais pas forcément spécialisée dans
+% l'oculométrie. Il est possible toutefois d'écrire des algorithmes pour suivre
+% le regard grace aux outils mis à disposition par la bibliothèque. Il existe
+% également de jeux de données assez grands mis à disposition en ligne, tel que
+% NVGaze \cite{nvgaze} de NVidia, pour entrainer des réseaux de neurones à
+% éstimer le regard grace à des images \cite{gaze_tracking}. OpenCV propose plein
+% d'outils de visualisation des données en temps réel, mais aucun pour leur
+% exploitation.
+
+% \bigskip
+% Le grand avantage de OpenCV est son age et popularité. Elle est la bibliothèque
+% de référence dans le domaine de la vision par ordinateur, propose parmi des
+% outils très optimisés, tout en restant bien documenté. C'est aussi un projet
+% open-source, et c'est pour cela qu'elle rassemble une grande communauté.
+% Puisqu'elle n'est pas spécialisée dans l'eye-tracking, elle ne propose pas
+% d'outils d'analyse et de visualisation de données, nécessaires en oculométrie.
+
+% \subsection{PyGaze}
+
+% Une autre bibliothèque très intéressante est PyGaze \cite{pygaze}. C'est une
+% toolbox permettant de suivre le regard sur un écran grace à une caméra ou
+% webcam. Elle propose également des outils pour analyser les données
+% enregistrées, lors d'une séance d'eye-tracking. Ces outils permettent de créer
+% plusieurs types d'images pour suivre le regard au fur et à mesure du temps.
+% Parmi ces images se trouvent des cartes de fixations, des heatmap et des schémas
+% du chemin du regard. Elle permettent de facilement comprendre les données et
+% d'en tirer des conclusions plus rapidement. En plus, la bibliothèque PyGaze peut
+% être utilisée avec la SDK de Tobii pour profiter de toutes les fonctionnalités
+% des produits Tobii.
+
+% \bigskip
+% Cette bibliothèque est donc idéale pour visualiser les données récupérées grace
+% àl'oculométrie, de façon simple et efficace. Cette libraire est assez bien
+% documentée aussi. PyGaze est donc vraiment intéressante à utiliser, en
+% combinaison avec les capteurs Tobii pour tirer profit d'un maximum de données
+% et créer des images de synthése les plus concluantes possibles. Ces-dernieres
+% sont très importantes pour permettre de tirer les bonnes conclusions.
 
 
 
 \begin{itemize}
-  \item NVGaze
   \item https://imotions.com/blog/10-terms-metrics-eye-tracking/
   \item https://www.gazept.com/product/gazepoint-analysis-professional-edition-software/
   \item https://imotions.com/blog/free-eye-tracking-software/
