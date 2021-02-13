@@ -28,14 +28,14 @@
 
 \section{Introduction}
 L'eye-tracking \cite{wiki:eye_tracking}, ou oculométrie, est une technologie
-assez récente qui détermine la position du regard d'un individu. Des capteurs
-spéciaux envoient des rayons infrarouges vers les yeux d'un individu et ceux-ci
-sont réfléchis, leur permettant ainsi de déterminer ses mouvements oculaires
-sur un écran. Elle établie alors une nouvelle interface entre Homme et machine
-et est devenue aujourd'hui une technologie principale dans des études liées au
-système visuel humain, à la psychologie, au marketing et design. Elle est en
-fait dèjà très utilisée dans les jeux vidéos. Un domaine où cette technologie
-reste encore peu developpée est la réalité virtuelle.
+assez récente qui détermine la position du regard d'un individu dans un
+environment virtuel. Elle établie alors une nouvelle interface entre Homme et
+machine et c'est devenue aujourd'hui une technologie principale dans des études
+liées au système visuel humain, à la psychologie, au marketing et au design.
+Elle est aussi dèjà très utilisée dans les jeux vidéos. L'eye-tracking est très
+ambitieux, cependant les recherches dans le domaine de la réalité virtuelle
+reste encore moindres. C'est donc dans ce domaine que l'on se concentrera
+davantage.
 
 \bigskip
 Déterminer la position du regard d'un individu sur un écran permet d'effectuer
@@ -47,45 +47,66 @@ certaines études ont besoin d'un environment plus réalistes. La réalité
 virtuelle ajoute une nouvelle couche d'immersion, permettant à un individu de
 se sentir et agir de façon plus réaliste. Ainsi, la réalité virtuelle
 permettrait de livrer des résultats beaucoup plus fiables pour certains
-domaines, et ainsi aider à l'avancement des recherches sur le comportement
+domaines, et ainsi pousser à l'avancement des recherches sur le comportement
 humain.
 
 % ----------------------------------------------------------------------------
-% MATERIEL
+% CAPTEURS
 % ----------------------------------------------------------------------------
 
 \section{Capteurs d'oculométrie}
 
-Pour l'instant, les meilleurs produits liés à l'eye-tracking sont ceux crées
-par l'entreprise Tobii \cite{tobii} et HTC Vive \cite{htc_vive_pro_eye}. Elles
-proposent des solutions dans plusieurs domaines, des capteurs simples pouvant
-être utilisés pour suivre les mouvements sur un écran, des solutions plus
-professionnelles pour effectuer des captures dans le monde réel, mais aussi des
-produits pour des individus qui nécessitent de l'assistance.
+L'eye-tracking est permis grace à des capteurs spéciaux qui envoient des rayons
+infrarouges vers les yeux d'un individu. Ils sont infrarouges car ils ne sont
+pas visibles par la vision humain. Ces rayons sont alors réfléchis par les yeux
+et les capteurs peuvent ainsi déterminer la direction de regard au fil du temps.
+Ensuite un logiciel va déterminer la position du regard dans un environment, que
+ce soit un écran ou un monde virtuel.
 
 \bigskip
-Le capteur le plus basique est une barre à placer en dessous ou au dessus d'un
-écran, qui va donc capturer les mouvements oculaires d'un individu et déterminer
-la position de son regard sur cet écran. Ce capteur permet d'enregistrer toutes
-les données afin de les étudier et effectuer des analyses statistiques. C'est un
-produit très pratique, mais laisse peu de liberté de mouvement. Des nouveaux
-capteurs d'oculométrie ont éte intégrés à des casques de réalité virtuelle,
-pour profiter du mouvement libre dans un monde tri-dimensionnel.
+Il existe trois types de capteurs d'oculométrie sur la marché actuellement.
 
-\begin{figure}[htpb]
-  \includegraphics[width=\textwidth,keepaspectratio=true]{tobiivr.png}
-  \caption{Casque de réalité virtuelle Tobii VR}
-\end{figure}
+\begin{itemize}
+  \item Des capteurs pour écrans : ce sont les capteurs les plus basiques. Ils
+        sont placés au-dessus ou en-dessous d'un écran et orientés vers les yeux
+        d'un individu. Ils permettent de suivre le regard sur un écran, donc
+        dans un environment à deux dimensions.
+  \item Des capteurs intégrés à des lunettes : ces capteurs suivent le regard
+        d'un individu effectuant des taches dans le monde réel. Les capteurs
+        sont alors orientés vers les yeux de l'individu et des caméras capturent
+        ce que l'individu observe.
+  \item Des capteurs intégrés à des casques de réalité virtuelle : ce sont des
+        capteur similaires à ceux des écrans, mais qui ont été manipulés pour
+        s'intégrer dans des casques de réalité virtuelle et observer les yeux à
+        un distance beaucoup plus courte. Ces capteurs permettraient alors de
+        suivre le regard dans un environment à trois dimensions. Un avantage à
+        cette technologie ajoutée à la réalité virtuelle est le rendu fovéal
+        \cite{wiki:foveated_rendering} : les yeux ne se focalisent qu'en une
+        seule région tandis que le reste du champ visuel est flou. Cette méthode
+        de rendu propose d'effectuer un rendu de très haute qualité à la région
+        de focalisation mais une qualité de rendu moins important dans les reste
+        du champ périphérique.
+\end{itemize}
 
-L'ajout de l'eye-tracking dans la réalité virtuelle permet essentielment de
-faire du rendu fovéal \cite{wiki:foveated_rendering} : les yeux ne se
-focalisent qu'en une seule région tandis que le reste du champ visuel est flou.
-Cette méthode de rendu propose d'effectuer un rendu de très haute qualité à la
-région de focalisation mais une qualité de rendu moins important dans les reste
-du champ périphérique. La réalité virtuelle a souvent besoin de beaucoup de
-puissance de calcul, et donc cette technique de rendu associée avec
-l'eye-tracking permettrait de faire des gains en puissance de calcul mais aussi
-en qualité de rendu, en plus des fonctionnalités de tout capteur basique.
+\bigskip
+La plupart des produits liés à l'eye-tracking sont distribués par des
+entreprises telles que Tobii \cite{tobii} et HTC Vice \cite{htc_vive_pro_eye}.
+Ces solutions peuvent être utilisés dans plusieurs domaines : les capteurs pour
+écrans peuvent être utile pour étudier le regard d'un individu sur une page web,
+par exemple, et ainsi déterminer les régions les plus attrayantes ou non. Les
+lunettes avec capteurs intégrées sont plutôt utilisés dans le monde
+professionnel, dans les métiers de l'artisanal, dans la médicine ou le pilotage.
+Les casques de réalité virtuelle avec capteurs intégrés seraient utilisés dans
+des situations d'entrainement ou des circonstances pas facilement réalisables
+dans le monde réel. Certains produits similaires peuvent aussi être utilisés
+pour assister à des personnes en situatio de handicap et à mobilité réduite.
+
+\bigskip
+Il existe alors une grande variété des capteurs, certains plus spécialisés dans
+des domaines que d'autres, mais ayants le même objectif : suivre le regard. Ce
+suivi est d'autant plus utile pour effectuer des recherches. Les capteurs sont
+fournis avec des logiciels capables de produire toutes les données nécessaires
+pour les analyser.
 
 % ----------------------------------------------------------------------------
 % LOGICIELS
@@ -157,6 +178,8 @@ sont très importantes pour permettre de tirer les bonnes conclusions.
 \begin{itemize}
   \item NVGaze
   \item https://imotions.com/blog/10-terms-metrics-eye-tracking/
+  \item https://www.gazept.com/product/gazepoint-analysis-professional-edition-software/
+  \item https://imotions.com/blog/free-eye-tracking-software/
 \end{itemize}
 
 % ----------------------------------------------------------------------------
