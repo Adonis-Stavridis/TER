@@ -35,8 +35,7 @@ machine et c'est devenue aujourd'hui une technologie principale dans des études
 liées au système visuel humain, à la psychologie, au marketing et au design.
 Elle est aussi dèjà très utilisée dans les jeux vidéos. L'eye-tracking est très
 ambitieux, cependant les recherches dans le domaine de la réalité virtuelle
-reste encore moindres. C'est donc dans ce domaine que l'on se concentrera
-davantage.
+reste encore moindres.
 
 \bigskip
 Déterminer la position du regard d'un individu sur un écran permet d'effectuer
@@ -50,6 +49,21 @@ se sentir et agir de façon plus réaliste. Ainsi, la réalité virtuelle
 permettrait de livrer des résultats beaucoup plus fiables pour certains
 domaines, et ainsi pousser à l'avancement des recherches sur le comportement
 humain.
+
+\bigskip
+En vue de ce travail de recherche, un premier environment a déjà été mis au
+point pour recueillir des données d'eye-tracking sur un écran et en réalité
+virtuelle. L'objectif est donc de réaliser la visualisation et l'analyse des
+données oculaires, en temps réel ou par l'intermédiaire d'une application. Or,
+il existe certaines bibliothèques qui permettent de visualiser les données. Donc
+laquelle est la plus adaptée pour traiter des données d'oculométrie sur un écran
+et en réalité virtuelle?
+
+\bigskip
+Il faudrait d'abord comprendre comment sont récupérées les données, quelle est
+leur forme et puis énumérer les type de visualisation des données qu'il est
+souhaité de réaliser afin de déterminer enfin la bibliothèque la plus
+intéressante pour accomplir ce travail d'analyse.
 
 % ------------------------------------------------------------------------------
 % CAPTEURS
@@ -125,30 +139,65 @@ utilisés pour analyser le regard \cite{imotions:metrics}, chacune organisant
 les données de façon à avoir une analyse compléte, étudiant tous les aspects du
 regard.
 
-\subsection{Points de fixations}
+\subsection{Points de fixation}
+
+L'un des termes les plus utilisés pour représenter le regard au fil du temps
+sont les points de fixation. Ce sont des mesures qui consistent à indiquer
+le point de focalisation d'un individu à un instant donné. Un capteur qui
+collectionne des données avec un taux d'échantillonage de 120hz, par exemple, va
+fournir en sortie 120 points de fixations par seconde. Il faut donc faire une
+organisantion des points en fonctions du temps et de l'espace. La quantité de
+points de fixations montre à quel point l'attention visuelle a été portée en une
+région.
+
+\subsection{Séquence de fixations}
+
+Étudier la séquence de ces points de fixations serait également intéressant. Un
+individu va d'abord fixer son regard sur les régions les plus prioritaires et va
+se construire l'environment petit à petit, en se concentrant sur différentes
+zones. L'ordre d'attention est importante dans la recherche car elle reflète de
+l'intérêt d'un individu sur une région et met en avant les objets les plus
+captivants au premier regard. Le premier point de fixation peut être aléatoire,
+mais les zones de fixations qui suivent peuvent parfois être prédites (pour
+une interface utilisateur, par exemple). C'est donc un support qui permet d'en
+tirer plusieurs conclusions.
 
 \subsection{Heatmaps}
 
-\begin{figure}[htpb]
+Une autre représentation très importante est la distribution des points de
+fixation, sous la forme d'une heatmap. Un gradient de couleur est placée sur la
+environment original indiquant du rouge au bleu les régions les plus
+attrayantes (cf. Figure \ref{fig:heatmap}). Ces heatmaps sont un moyen très
+simple de séparer les régions les plus attirantes.
+
+\begin{figure}[ht]
   \includegraphics[width=\textwidth,keepaspectratio=true]{heatmap.png}
   \caption{Exemple de heatmap sur une page de recherche sur Google}
+  \label{fig:heatmap}
 \end{figure}
 
 \subsection{Zones d'intérêt}
 
-\subsection{Temps jusqu'à la première fixation}
+Une zone d'intérêt n'est pas vraiment une représentation mais un outil qui
+permet de spécifier des zones, des objets au préalable, pour en extraire leurs
+mesures. C'est un outil pratique pour bien séparer les différentes zones d'un
+environment d'étude, et déterminer les régions les plus importantes. Dans les
+mesures de chaque zone, il serait intéressant d'y calculer :
 
-\subsection{Temps écoulé}
+\begin{itemize}
+  \item le délai à la première fixation : c'est le temps qu'un individu à mis
+        depuis le début pour fixer une zone pour la première fois.
+  \item la durée de fixation : c'est la somme du temps qu'un individu a passé a
+        fixer une zone
+  \item le nombre de fixations : le regard peut fixer une zone, la quitter et
+        puis revenir dessus; c'est donc le nombre de fois qu'un individu à fixé
+        une zone
+\end{itemize}
 
-\subsection{Ratio}
-
-\subsection{Séquence de fixation}
-
-\subsection{Nombre de visites}
-
-\subsection{Durée de première fixation}
-
-\subsection{Durée de fixation moyenne}
+\bigskip
+Il existe donc plusieurs façons d'organiser les données et de les représenter
+pour faciliter leur compréhension et permettre d'en tirer les bonnes
+conclusions, en prenant en compte tous les aspects de l'étude.
 
 % ------------------------------------------------------------------------------
 % LOGICIELS
