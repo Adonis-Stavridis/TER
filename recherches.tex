@@ -6,7 +6,11 @@
 \usepackage[french]{babel}
 \usepackage{url}
 \usepackage{graphicx}
+\usepackage{pifont}
 \graphicspath{ {./img/} }
+
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
 
 \title{\textbf{Analyse de données d’eye-tracking en Réalité Virtuelle}}
 \author{\Large{Adonis Stavridis}}
@@ -121,7 +125,9 @@ Il existe alors une grande variété des capteurs, certains plus spécialisés d
 des domaines que d'autres, mais ayants le même objectif : suivre le regard. Ce
 suivi est d'autant plus utile pour effectuer des recherches. Les capteurs sont
 fournis avec des logiciels capables de produire toutes les données nécessaires
-pour les analyser.
+pour les analyser. Dans le cadre de ce travail, les capteurs utilisés sont une
+barre de tracking Tobii pour écrans et un casque HTC Vive avec capteur intergrée
+pour la réalité virtuelle.
 
 % ------------------------------------------------------------------------------
 % ANALYSE DES DONNÉES
@@ -172,7 +178,8 @@ simple de séparer les régions les plus attirantes.
 
 \begin{figure}[ht]
   \includegraphics[width=\textwidth,keepaspectratio=true]{heatmap.png}
-  \caption{Exemple de heatmap sur une page de recherche sur Google}
+  \caption{Exemple de heatmap sur une page de recherche sur Google
+    \cite{img:heatmap}}
   \label{fig:heatmap}
 \end{figure}
 
@@ -205,75 +212,93 @@ conclusions, en prenant en compte tous les aspects de l'étude.
 
 \section{Logiciels}
 
+Pour pouvoir analyser les données et créer ces réprésentations il faudrait soit
+utiliser des bibliothèques ou logiciels déjà disponibles
+\cite{imotions:software}, ou sinon créer les outils. Heureusement, il existe
+certaines bibliothèques et logiciels open-source, ou gratuites uniquement,
+permettant d'effectuer un minimum d'analyse de données. L'objectif est donc de
+déterminer laquelle est la plus intéressante à utiliser dans le cadre de ce
+travail.
+
 \subsection{GazePointer}
+
+Gazepointer \cite{gazepointer} est une application libre qui permet d'effectuer
+de l'eye-tracking principalement. Il existe une fonctionnalité intégrée au
+logiciel qui permet de faire des séances de suivi du regard, et génerer une
+heatmap des fixations. Cependant c'est la seule analyse possible. De plus,
+c'est un logiciel qui fonctionne indépendement, et non pas une bibliothèque, et
+ne permet pas à ses outils d'être accessibles ailleurs que dans ce logiciel.
+Aussi, le logiciel fonctionne uniquement avec des webcams. Le logiciel
+Gazepointer permet d'analyser des données d'oculométrie, mais son
+implémentation n'est pas optimale dans le cadre de ce travail, avec les
+capteurs disponibles. Ce logiciel ne permet pas du tout l'oculométrie en
+réalité virtuelle. GazePointer n'est donc pas le plus intéressant pour ce
+travail.
 
 \subsection{Ogama}
 
+Ogama \cite{ogama} est une application open-source d'enregistrer et d'analyser 
+des données d'oculométrie et de mouvements de souris. Le logiciel permet 
+essentielment de créer des cartes de fixations et des zones d'intérêt, et du
+calcul de saillance, pour déterminer quelles régions sont les plus attrayantes.
+Il accepte toutes de données enregistrées en format ASCII, et, en plus, le
+logiciel est certifié de fonctionner avec plusieurs logiciels et capteurs sur le
+marché tels que Tobii. Ogama est donc certainement intéressant pour pouvoir
+importer et analyser des données facilement. Cependant, ce n'est pas une
+bibliothèque et ne permet donc pas autant de flexibilité.
+
 \subsection{PyGaze}
 
-\subsection{TurkerGaze}
+PyGaze \cite{pygaze} est quant à elle une toolbox Python, permettant également
+d'effectuer du suivi de regard et analyser les données. Elle est facile à
+utiliser, il suffit d'avoir des connaissances de programmation en Python.
+La fonctionnalité la plus intéressante de cette bibliothèque est l'outil
+d'analyse des données, puisque les données sont récupérées grace à des capteurs
+et des logiciels différents. PyGaze permet alors d'afficher les données sous
+forme de cartes de fixations, des cartes de séquence de fixations, des heatmaps,
+mais aussi sous forme brute pour rendre visible toute l'espace que la
+trajectoire a traversé. Le code de PyGaze est open-source et il est donc
+possible de se baser sur cette bibliothèque pour développer d'autres outils. De
+plus, elle supporte des SDK telles que celle de Tobii. Les façons de
+représenter les données sont multiples, ce qui rend cette toolbox un très bon
+candidat.
 
 \subsection{GazeParser}
 
-% De nos jours, la plupart des gens possédent un appareil électronique avec une
-% caméra intergrée, que ce soit une webcam ou la caméra d'un smartphone. Il n'est
-% pas nécessaire d'acheter du matériel professionnel pour profiter de la
-% technologie d'eye-tracking. Il existe plusieurs logiciels et bibliothèques qui
-% permettent d'effectuer de l'oculométrie, facilement et gratuitement aussi.
+GazeParser \cite{gazeparser} est une bibliothèque d'analyse des données du
+regard qui permet essentielment de récupérer les données et les visualiser sous
+forme de graphiques. Ceci peut être pratique pour avoir une approche plus brute
+des données. GazeParser permet aussi d'appliquer des filtres sur les données
+pour réduire le bruit et effectuer une analyse plus correcte. À part ces
+fonctionnalités, la bibliothèque ne propose rien de plus intéressant et donc son
+utilité est moindre. L'objectif de ce travail est d'obtenir des représentations
+plus visuelles que graphiques, mais GazeParser pourrait tout à fait être
+utilisée pour filtrer et améliorer le jeu de données, afin d'avoir une analyse
+plus concluante.
 
-% \subsection{OpenCV}
+\begin{center}
+  \begin{tabular}{ |c||c|c|c|  }
+    \hline
+    \multicolumn{4}{|c|}{Comparaison des logiciels}                            \\
+    \hline
+    Logiciels   & Bibliothèque & Analyse               & Documentation         \\
+    \hline
+    GazePointer & \xmark       & \cmark                & \cmark                \\
+    Ogama       & \xmark       & \cmark \cmark  \cmark & \cmark \cmark         \\
+    PyGaze      & \cmark       & \cmark \cmark  \cmark & \cmark \cmark  \cmark \\
+    GazeParser  & \cmark       & \cmark                & \cmark \cmark         \\
+    \hline
+  \end{tabular}
+\end{center}
 
-% L'une des bibliothèques les plus utilisées dans le traitement d'images en temps
-% réel et en vision par ordinateur ou Computer Vision est OpenCV \cite{opencv}.
-% Elle propose des fonctionnalités pour traiter des données brutes d'images, mais
-% aussi une grande variété d'outils issus de l'état de l'art en vision des
-% ordinateurs (détection de visage par exemple) et des algorithmes d'apprentissage
-% artificiel. En tout, c'est une bibliothèque très compléte, pour la majorité des
-% domaines de la vision par ordinateur, mais pas forcément spécialisée dans
-% l'oculométrie. Il est possible toutefois d'écrire des algorithmes pour suivre
-% le regard grace aux outils mis à disposition par la bibliothèque. Il existe
-% également de jeux de données assez grands mis à disposition en ligne, tel que
-% NVGaze \cite{nvgaze} de NVidia, pour entrainer des réseaux de neurones à
-% éstimer le regard grace à des images \cite{gaze_tracking}. OpenCV propose plein
-% d'outils de visualisation des données en temps réel, mais aucun pour leur
-% exploitation.
-
-% \bigskip
-% Le grand avantage de OpenCV est son age et popularité. Elle est la bibliothèque
-% de référence dans le domaine de la vision par ordinateur, propose parmi des
-% outils très optimisés, tout en restant bien documenté. C'est aussi un projet
-% open-source, et c'est pour cela qu'elle rassemble une grande communauté.
-% Puisqu'elle n'est pas spécialisée dans l'eye-tracking, elle ne propose pas
-% d'outils d'analyse et de visualisation de données, nécessaires en oculométrie.
-
-% \subsection{PyGaze}
-
-% Une autre bibliothèque très intéressante est PyGaze \cite{pygaze}. C'est une
-% toolbox permettant de suivre le regard sur un écran grace à une caméra ou
-% webcam. Elle propose également des outils pour analyser les données
-% enregistrées, lors d'une séance d'eye-tracking. Ces outils permettent de créer
-% plusieurs types d'images pour suivre le regard au fur et à mesure du temps.
-% Parmi ces images se trouvent des cartes de fixations, des heatmap et des schémas
-% du chemin du regard. Elle permettent de facilement comprendre les données et
-% d'en tirer des conclusions plus rapidement. En plus, la bibliothèque PyGaze peut
-% être utilisée avec la SDK de Tobii pour profiter de toutes les fonctionnalités
-% des produits Tobii.
-
-% \bigskip
-% Cette bibliothèque est donc idéale pour visualiser les données récupérées grace
-% àl'oculométrie, de façon simple et efficace. Cette libraire est assez bien
-% documentée aussi. PyGaze est donc vraiment intéressante à utiliser, en
-% combinaison avec les capteurs Tobii pour tirer profit d'un maximum de données
-% et créer des images de synthése les plus concluantes possibles. Ces-dernieres
-% sont très importantes pour permettre de tirer les bonnes conclusions.
-
-
-
-\begin{itemize}
-  \item https://imotions.com/blog/10-terms-metrics-eye-tracking/
-  \item https://www.gazept.com/product/gazepoint-analysis-professional-edition-software/
-  \item https://imotions.com/blog/free-eye-tracking-software/
-\end{itemize}
+Il existe donc plusieurs applications et bibliothèques gratuites permettant
+d'effectuer une analyse sur les jeux de données créés par les capteurs. Il
+existe également des logiciels payants, mais ceux-ci sont hors de portée dans le
+cadre de ce travail. L'objectif étant d'obtenir des représentations graphiques
+des données, certaines bibliothèques sont plus intéressantes. PyGaze est le
+candidat idéal ici, puisque c'est une bibliothèque et non une application mais
+aussi car elle propose beaucoup d'outils d'analyse des données et reste bien
+documentée également.
 
 % ----------------------------------------------------------------------------
 % CONCLUSION
