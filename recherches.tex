@@ -7,6 +7,8 @@
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{pifont}
+\usepackage{subfig}
+
 \graphicspath{ {./img/} }
 
 \newcommand{\cmark}{\ding{51}}
@@ -33,42 +35,59 @@
 \section{Introduction}
 
 L'eye-tracking \cite{wiki:eye_tracking}, ou oculométrie, est une technologie
-assez récente qui détermine la position du regard d'un individu dans un
-environment virtuel. Elle établie alors une nouvelle interface entre Homme et
-machine et c'est devenue aujourd'hui une technologie principale dans des études
-liées au système visuel humain, à la psychologie, au marketing et au design.
-Elle est aussi dèjà très utilisée dans les jeux vidéos. L'eye-tracking est très
-ambitieux, cependant les recherches dans le domaine de la réalité virtuelle
-reste encore moindres.
+qui permet de reconnaître la position du regard d'un individu dans un
+environnement virtuel ou réel. Elle fournit un moyen de suivre les processus
+attentionnels d'un utilisateur et permet d'établir une interface entre
+Homme et machine. Cette technique peut être très utilisée pour les études liées
+au système visuel humain, à la psychologie, au marketing et au design. Elle est
+dèjà utilisée dans les jeux vidéos. Bien que cette technologie soit bien connue
+et utilisée dans de multiples domaines de recherche, elle est encore peu
+exploitée dans le domaine de la réalité virtuelle.
 
 \bigskip
-Déterminer la position du regard d'un individu dans un environment permet
+Déterminer la position du regard d'un individu dans un environnement permet
 d'effectuer des études quantitatives et qualitatives sur de multiples supports,
-et ainsi comprendre les comportements humains dans différentes situations.
-L'eye-tracking s'avère donc être très pratique pour étudier les zones qui sont
-le plus attrayantes et celles qui le sont moins. Cependant, certaines études
-ont besoin d'un environment plus réaliste. La réalité virtuelle ajoute une
-nouvelle couche d'immersion, permettant à un individu de se sentir et agir de
-façon plus réaliste. La réalité virtuelle permettrait alors de livrer des
-résultats beaucoup plus fiables pour certains domaines, et ainsi pousser à
-l'avancement des recherches sur le comportement humain.
+et ainsi, de comprendre les cognitions et comportements humains dans différentes
+situations. L'eye-tracking s'avère donc être très pratique pour étudier la
+saillance des éléments présents dans les environnements virtuels. Cependant,
+certaines études ont besoin d'un environnement plus réaliste. La réalité
+virtuelle ajoute une nouvelle couche d'immersion, permettant à un individu de
+se sentir et agir de façon plus réaliste. La réalité virtuelle permettrait
+alors de livrer des résultats beaucoup plus fiables pour certains domaines, et
+ainsi pousser à l'avancement des recherches sur le comportement humain.
 
 \bigskip
-En vue de ce travail de recherche, un premier environment a déjà été mis au
-point pour recueillir des données d'eye-tracking sur un écran et en réalité
-virtuelle. L'objectif est donc de réaliser la visualisation et l'analyse des
-données oculaires, en temps réel ou par l'intermédiaire d'une application. Or,
-il existe certaines bibliothèques qui permettent de visualiser ces données. Donc
-laquelle est la plus adaptée pour traiter des données d'oculométrie sur un écran
-et en réalité virtuelle?
+L'objectif de ce travail consiste à développer des outils d'analyse des données
+d'oculométrie afin de comparer le regard face à un écran ou dans un
+environnement de réalité virtuelle. La visualisation et l'analyse des données
+oculaires, peut être effectuée en temps réel ou par l'intermédiaire d'une
+application. En vue de ce travail de recherche, un premier environnement (cf.
+Figure \ref{fig:environnement}) a déjà été mis au point pour recueillir des
+données d'eye-tracking sur un écran d'ordinateur, mais aussi dans un
+environnement de réalité virtuelle. Un individu se place devant un écran et
+observe différents supports, quant à la réalité virtuelle, l'individu porte un
+casque et se retrouve dans ce même environnement face à un écran, cette fois-ci,
+dans un monde virtuel. A partir des données recueillies au cours de sessions
+exprimentales, il faudrait générer des supports (images et graphiques)
+qui rassemblent toutes les informations nécessaires pour une analyse compléte de
+l'étude. Il existe certaines bibliothèques et logiciels qui permettent de
+traiter ces données, mais toutes ne présentent pas les mêmes fonctionnalités.
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=0.75\textwidth,keepaspectratio=true]{environnement.png}
+  \caption{Rendu de l'environnement mis en place en réalité virtuelle pour
+    effectuer des mesures d'oculométrie \cite{img:environnement}.}
+  \label{fig:environnement}
+\end{figure}
 
 \bigskip
-Il faudrait d'abord comprendre comment sont récupérées les données, quelle est
-leur forme et puis énumérer les type de visualisation des données qu'il est
-souhaité de réaliser afin de déterminer la bibliothèque la plus intéressante à
-utiliser pour accomplir ce travail d'analyse.
-
-\pagebreak
+Il convient dans un premier temps de sélectionner l'outil qui possède les
+meilleurs atouts pour réaliser ces supports. Pour cela, il faut d'abord
+comprendre comment sont récupérées les données, comment elle sont structurées
+et puis identifier les types de support pertinents pour une analyse compléte,
+afin de déterminer la bibliothèque la plus intéressante à utiliser pour
+accomplir ce travail.
 
 % ------------------------------------------------------------------------------
 % CAPTEURS
@@ -76,35 +95,27 @@ utiliser pour accomplir ce travail d'analyse.
 
 \section{Capteurs}
 
-L'eye-tracking est permis grâce à des capteurs spéciaux qui envoient des rayons
-infrarouges vers les yeux d'un individu. Ils sont infrarouges car ils ne sont
-pas visibles par la vision humain. Ces rayons sont alors réfléchis par les yeux
-et les capteurs peuvent ainsi déterminer la direction de regard au fil du temps.
-Ensuite un logiciel intégré aux capteurs va déterminer la position du regard
-dans un environment d'étude, que ce soit un écran ou un monde virtuel.
+L'eye-tracking est permis grâce à des émetteurs spéciaux qui envoient des rayons
+infrarouges (non perceptibles par l'œil humain) vers les yeux d'un individu.
+Ces rayons sont alors réfléchis par les yeux et les capteurs, à leur réception,
+calculent la direction des yeux et peuvent ainsi déterminer la direction du
+regard au fil du temps. Grâce à un logiciel intégré aux capteurs, le dispositif
+va déterminer la position du regard dans un environnement d'étude, que ce soit
+un écran ou un monde virtuel.
 
 \bigskip
-Il existe trois types de capteurs d'oculométrie sur la marché actuellement.
+Les deux types de capteurs utilisés dans ce travail sont les suivants :
 \begin{itemize}
   \item Des capteurs pour écrans : ce sont les capteurs les plus basiques. Ils
         sont placés au-dessus ou en-dessous d'un écran et orientés vers les yeux
         d'un individu. Ils permettent de suivre le regard sur un écran, donc
-        dans un environment à deux dimensions.
-  \item Des capteurs intégrés à des lunettes : ces capteurs suivent le regard
-        d'un individu effectuant des tâches dans le monde réel. Les capteurs
-        sont alors orientés vers les yeux de l'individu et des caméras
-        enregistrent ce que l'individu observe devant lui.
+        dans un environnement à deux dimensions.
   \item Des capteurs intégrés à des casques de réalité virtuelle : ce sont des
-        capteurs similaires à ceux des écrans, mais qui ont été modifiés pour
+        capteurs similaires aux précédents, mais qui ont été modifiés pour
         s'intégrer dans des casques de réalité virtuelle et observer les yeux à
-        une distance beaucoup plus courte. Ces capteurs permettraient alors de
-        suivre le regard dans un environment à trois dimensions. Un avantage à
-        cette technologie dans la réalité virtuelle est le rendu fovéal
-        \cite{wiki:foveated_rendering}. Les yeux ne se focalisent qu'en une
-        seule région tandis que le reste du champ visuel est flou, donc cette
-        méthode de rendu ne propose d'effectuer qu'un rendu de très haute
-        qualité à la région de fixation mais une qualité de rendu moins
-        importante dans les reste du champ périphérique.
+        une distance beaucoup plus courte. Ces capteurs permettent de suivre le
+        regard dans un environnement virtuel à trois dimensions. Un avantage à
+        cette technologie est le rendu fovéal \cite{wiki:foveated_rendering}.
 \end{itemize}
 
 \bigskip
@@ -113,22 +124,26 @@ entreprises telles que Tobii \cite{tobii} et HTC Vice \cite{htc_vive_pro_eye}.
 Ces solutions peuvent être utilisées dans plusieurs domaines \cite{yt:tobii_vr}
 : les capteurs pour écrans peuvent être utiles pour étudier le regard d'un
 individu sur une page web, par exemple, et ainsi déterminer les régions les
-plus attrayantes ou non. Les lunettes avec capteurs intégrés sont plutôt
-utilisés dans le monde professionnel, dans les métiers de l'artisanal, dans la
-médicine ou le pilotage. Les casques de réalité virtuelle avec capteurs
-intégrés seraient utilisés dans des situations d'entraînement ou des
-circonstances pas facilement réalisables dans le monde réel. Certains produits
-similaires peuvent aussi être utilisés pour assister à des personnes en
-situation de handicap et à mobilité réduite.
+plus attrayantes ou non. Les casques de réalité virtuelle avec capteurs
+intégrés sont quant à eux utilisés dans des situations d'entraînement ou des
+circonstances difficilement réalisables dans le monde réel.
 
-\bigskip
-Il existe alors une grande variété des capteurs, certains plus spécialisés dans
-des domaines que d'autres, mais ayants tous le même objectif. Ce suivi est
-d'autant plus utile pour effectuer des recherches. Les capteurs sont fournis
-avec des logiciels capables de produire toutes les données nécessaires
-pour les analyser. Dans le cadre de ce travail, les capteurs utilisés sont une
-barre de tracking Tobii pour écrans et un casque HTC Vive avec capteur intergré
-pour la réalité virtuelle.
+\begin{figure}[htpb]
+  \centering
+  \subfloat{\includegraphics[width=5cm]{tobii.jpeg}}
+  \qquad
+  \subfloat{\includegraphics[width=5cm]{htcvive.png}}
+  \caption{Capteur Tobii \cite{img:tobii} pour écrans (à gauche) et casque HTC
+    Vive \cite{img:htcvive} pour la réalité virtuelle (à droite).}
+  \label{fig:materiel}
+\end{figure}
+
+Il existe plusieurs types de capteurs, certains plus spécialisés dans certains
+domaines que d'autres. Les capteurs sont fournis avec des logiciels capables de
+produire toutes les données nécessaires pour les analyser. Dans le cadre de ce
+travail, les capteurs utilisés sont une barre de tracking Tobii pour écrans et
+un casque HTC Vive avec capteur intergré pour la réalité virtuelle (cf. Figure
+\ref{fig:materiel}).
 
 % ------------------------------------------------------------------------------
 % ANALYSE DES DONNÉES
@@ -136,24 +151,44 @@ pour la réalité virtuelle.
 
 \section{Analyse des données}
 
-Après avoir récupéré les données brutes d'une séance d'oculométrie, il serait
-intéressant des les analyser afin d'en tirer des conclusions pertinantes. Les
-données sont une série de nombres, représentants les positions du regard dans un
-environment, mais sont difficilement compréhensibles. Pour cela, il serait
-beaucoup plus intéressant de transformer les données en des réprésentations
+Après avoir récupéré les données brutes d'une séance d'oculométrie, il faut
+pouvoir les analyser afin d'en tirer des informations pertinentes. Les
+données sont une série de valeurs numériques (cf. Figure \ref{fiées de façon plus explicite.}),
+représentants les positions du regard dans un environnement, mais sont
+difficilement compréhensibles telles quelles. Pour cela, il serait beaucoup
+plus intéressant de transformer les données en des réprésentations imagées et
 graphiques de différents types. Il existe différentes mesures et termes
 utilisés pour analyser le regard \cite{imotions:metrics}, chacune organisant
 les données de façon à avoir une analyse compléte, étudiant tous les aspects du
 regard.
 
+\begin{figure}[htpb]
+  \begin{verbatim}
+    <temps> : <positionX>, <positionY>
+    0.00 : 50, 50
+    0.25 : 43, 64
+    0.50 : 38, 75
+    0.75 : 41, 66
+    1.00 : 38, 59
+    1.25 : 35, 51
+    1.50 : 29, 44
+    1.75 : 24, 40
+    2.00 : 20, 33
+  \end{verbatim}
+  \caption{Exemple de données fournies par les logiciels de capteurs, avec une
+    indication du temps et de la position du regard (en pixels ou en
+    pourcentages) sur l'axe horizontal et vertical.}
+  \label{fiées de façon plus explicite.}
+\end{figure}
+
 \subsection{Points de fixation}
 
-L'un des termes les plus utilisés pour représenter le regard au fil du temps
-sont les points de fixation. Ce sont des mesures qui consistent à indiquer
+L'un des indicateurs les plus utilisés pour représenter le regard au fil du
+temps sont les points de fixation. Ce sont des mesures qui consistent à indiquer
 le point de focalisation d'un individu à un instant donné. Un capteur qui
 collectionne des données avec un taux d'échantillonage de 120hz, par exemple, va
 fournir en sortie 120 points de fixations par seconde. Il faut donc faire une
-organisantion des points en fonctions du temps et de l'espace. La quantité de
+organisantion de ces points en fonctions du temps et de l'espace. La quantité de
 points de fixations montre à quel point l'attention visuelle a été portée en une
 région.
 
@@ -161,28 +196,28 @@ région.
 
 Étudier la séquence de ces points de fixations serait également intéressant. Un
 individu va d'abord fixer son regard sur les régions les plus prioritaires et va
-se construire l'environment petit à petit, en se concentrant sur différentes
-zones. L'ordre d'attention est importante dans la recherche car elle reflète de
+se construire l'environnement petit à petit, en se concentrant sur plusieurs
+zones. L'ordre d'attention est important dans la recherche car elle reflète de
 l'intérêt d'un individu sur une région et met en avant les objets les plus
 captivants au premier regard. Le premier point de fixation peut être aléatoire,
 mais les zones de fixations qui suivent peuvent parfois être prédites (pour
-une interface utilisateur, par exemple). C'est donc un support qui permet d'en
-tirer plusieurs conclusions.
+une interface utilisateur, par exemple).
 
 \subsection{Heatmaps}
 
 Une autre représentation très importante est la distribution des points de
-fixation, sous la forme d'une heatmap. Un gradient de couleur est placée sur la
-environment original indiquant du rouge au bleu les régions les plus
+fixation, sous la forme d'une heatmap. Un gradient de couleur est placé sur
+l'environnement original indiquant du rouge au bleu les régions les plus
 attrayantes (cf. Figure \ref{fig:heatmap}). Ces heatmaps sont un moyen très
-simple de différencier les régions qui attirent le plus d'attention. C'est
-l'une des représentations les plus importantes.
+simple de différencier les régions qui attirent le plus l'attention. C'est
+l'une des représentations les plus importantes pour comprendre la saillance des
+éléments dans un environnement.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.75\textwidth,keepaspectratio=true]{heatmap.png}
   \caption{Exemple de heatmap sur une page de recherche sur Google
-    \cite{img:heatmap}}
+    \cite{img:heatmap}.}
   \label{fig:heatmap}
 \end{figure}
 
@@ -191,23 +226,25 @@ l'une des représentations les plus importantes.
 Une zone d'intérêt n'est pas vraiment une représentation mais un outil qui
 permet de spécifier des zones, des objets au préalable, pour en extraire leurs
 mesures. C'est un outil pratique pour bien séparer les différentes zones d'un
-environment d'étude, et déterminer les régions les plus importantes. Dans les
+environnement d'étude, et déterminer les régions les plus importantes. Dans les
 mesures de chaque zone, il serait intéressant d'y calculer :
 
 \begin{itemize}
-  \item le délai à la première fixation : c'est le temps qu'un individu à mis
+  \item le délai à la première fixation : le temps qu'un individu à mis
         depuis le début pour fixer une zone pour la première fois.
-  \item la durée de fixation : c'est la somme du temps qu'un individu a passé a
+  \item la durée de fixation : la somme du temps qu'un individu a passé a
         fixer une zone.
-  \item le nombre de fixations : le regard peut fixer une zone, la quitter et
-        puis revenir dessus; c'est donc le nombre de fois qu'un individu à fixé
-        une zone.
+  \item le nombre de fixations : le nombre de fois qu'un individu à fixé
+        une zone, puisque le regard peut fixer une zone, la quitter et
+        puis revenir dessus.
 \end{itemize}
 
 \bigskip
 Il existe donc plusieurs façons d'organiser les données et de les représenter
 pour faciliter leur compréhension et permettre d'en tirer les bonnes
-conclusions, en prenant en compte tous les aspects de l'étude du regard.
+conclusions, en prenant en compte tous les aspects de l'étude du regard. Il
+serait également intéressant de créer plusieurs graphiques pour représenter ces
+données de façon plus explicite.
 
 % ------------------------------------------------------------------------------
 % LOGICIELS
@@ -217,26 +254,25 @@ conclusions, en prenant en compte tous les aspects de l'étude du regard.
 
 Pour pouvoir analyser les données et créer ces réprésentations il faudrait soit
 utiliser des bibliothèques ou des applications déjà disponibles
-\cite{imotions:software}, ou sinon créer les outils. Heureusement, il existe
-certaines des logiciels open-source, ou gratuits uniquement, permettant
-d'effectuer un minimum d'analyse de données. L'objectif est donc de déterminer
-quel logiciel est le plus intéressant à utiliser dans le cadre de ce travail,
-pour analyser le regard sur un écran, mais surtout dans un environment de
+\cite{imotions:software}, soit créer les outils. Heureusement, il existe
+certains logiciels open-source, ou gratuits uniquement, permettant d'effectuer
+un minimum d'analyse de données. L'objectif est donc de déterminer quel
+logiciel est le plus intéressant à utiliser dans le cadre de ce travail,
+pour étudier le regard sur un écran, mais aussi dans un environnement de
 réalité virtuelle.
 
 \subsection{GazePointer}
 
 Gazepointer \cite{gazepointer} est une application libre qui permet d'effectuer
 de l'eye-tracking principalement. Il existe une fonctionnalité intégrée au
-logiciel qui permet de faire des séances de suivi du regard, et génerer une
+logiciel qui permet d'effectuer des séances de suivi du regard, et génerer une
 heatmap des fixations. Cependant c'est la seule analyse possible. De plus,
 c'est un logiciel qui fonctionne indépendamment, et non pas une bibliothèque :
-il ne permet pas à ses outils d'être accessibles ailleurs que dans
-l'application. Aussi, le logiciel fonctionne uniquement avec des webcams.
-Gazepointer permet d'analyser des données d'oculométrie, mais son
-implémentation n'est pas optimale dans le cadre de ce travail, avec les
-capteurs disponibles, et, en plus, ne permet pas du tout l'oculométrie en
-réalité virtuelle.
+ses outils ne sont pas accessibles en dehors de l'application. De plus, le
+logiciel fonctionne uniquement avec des webcams. Gazepointer permet d'analyser
+des données d'oculométrie, mais son implémentation n'est pas optimale dans le
+cadre de ce travail, avec les capteurs disponibles, et ne permet pas du tout
+l'oculométrie en réalité virtuelle.
 
 \subsection{Ogama}
 
@@ -253,16 +289,15 @@ autant de flexibilité.
 
 \subsection{PyGaze}
 
-PyGaze \cite{pygaze} est quant à elle une toolbox Python, permettant également
-d'effectuer du suivi de regard et analyser les données. Elle est facile à
-utiliser, il suffit d'avoir des connaissances de programmation en Python.
-La fonctionnalité la plus intéressante de cette bibliothèque est l'outil
-d'analyse des données. PyGaze permet alors d'afficher les données sous
-forme de cartes de fixations, des cartes de séquence de fixations, des heatmaps,
-mais aussi sous forme brute pour rendre visible toute l'espace que la
-trajectoire a traversé. Le code de PyGaze est open-source et il est donc
-possible de se baser sur cette bibliothèque pour développer d'autres outils. De
-plus, elle supporte des SDK telles que celle de Tobii. Les façons de
+PyGaze \cite{pygaze} est quant à elle une boîte à outil Python, permettant
+également d'effectuer du suivi de regard et analyser les données. La
+fonctionnalité la plus intéressante de cette bibliothèque est l'outil
+d'analyse des données. PyGaze permet d'afficher les données sous forme de
+cartes de fixations, des cartes de séquence de fixations, des heatmaps,
+mais aussi sous forme brute pour rendre visible tout l'espace que la
+trajectoire oculaire a traversé. Le code de PyGaze est open-source et il est
+donc possible de se baser sur cette bibliothèque pour développer d'autres
+outils. De plus, elle supporte des SDK tels que celui de Tobii. Les façons de
 représenter les données sont multiples, et il serait donc possible de
 l'utiliser pour créer des outils d'analyse en réalité virtuelle.
 
@@ -272,56 +307,53 @@ GazeParser \cite{gazeparser} est une bibliothèque d'analyse des données du
 regard qui permet essentielment de récupérer les données et les visualiser sous
 forme de graphiques. Ceci peut être pratique pour avoir une approche plus brute
 des données. GazeParser permet aussi d'appliquer des filtres sur les données
-pour réduire le bruit et effectuer une analyse plus correcte. Mis à part ces
-fonctionnalités, la bibliothèque ne propose rien de plus intéressant et donc son
-utilité est moindre dans le cadre de ce travail. L'objectif de ce travail est
-d'obtenir des représentations plus visuelles que graphiques, mais GazeParser
-pourrait tout à fait être utilisée pour filtrer et améliorer le jeu de données,
-afin d'avoir une analyse plus concluante.
+pour réduire le bruit et effectuer une analyse plus correcte. Elle peut être
+utilisée avec le langage Python, pour effectuer, au l'inverse des
+réprésentations imagées, des graphiques qui affichent les données exactes.
 
-\begin{center}
-  \begin{tabular}{|c||c|c|c|}
-    \hline
-    \multicolumn{4}{|c|}{Comparaison des logiciels}                            \\
-    \hline
-    Logiciels   & Bibliothèque & Analyse               & Documentation         \\
-    \hline
-    GazePointer & \xmark       & \cmark                & \cmark                \\
-    Ogama       & \xmark       & \cmark \cmark  \cmark & \cmark \cmark         \\
-    PyGaze      & \cmark       & \cmark \cmark  \cmark & \cmark \cmark  \cmark \\
-    GazeParser  & \cmark       & \cmark                & \cmark \cmark         \\
-    \hline
-  \end{tabular}
-\end{center}
+
+\bigskip
+\begin{table}[htpb]
+  \begin{center}
+    \begin{tabular}{|c||c|c|c|}
+      \hline
+      \multicolumn{4}{|c|}{Comparaison des logiciels}             \\
+      \hline
+      Logiciels   & Flexibilité   & Analyse       & Documentation \\
+      \hline
+      GazePointer & \xmark        & \cmark        & \cmark        \\
+      Ogama       & \xmark        & \cmark \cmark & \cmark        \\
+      PyGaze      & \cmark \cmark & \cmark \cmark & \cmark \cmark \\
+      GazeParser  & \cmark        & \cmark \cmark & \cmark        \\
+      \hline
+    \end{tabular}
+    \caption{Comparaison des logiciels en fonction de leur flexibilité
+      (possibilité d'être manipulé librement), leur capacité de géneration de
+      d'analyse des données et leur documentation.}
+    \label{tab:comparaison}
+  \end{center}
+\end{table}
 
 Il existe donc plusieurs applications et bibliothèques gratuites permettant
 d'effectuer une analyse sur les jeux de données créés par les capteurs. Il
 existe également des logiciels payants, mais ceux-ci sont hors de portée dans le
-cadre de ce travail. L'objectif étant d'obtenir des représentations graphiques
-des données, certaines bibliothèques sont plus intéressantes. PyGaze est le
-candidat idéal ici, puisque c'est une bibliothèque et non une application, mais
-aussi puisqu'elle propose beaucoup d'outils d'analyse des données et reste bien
-documentée également.
+cadre de ce travail. Après comparaison entre les logiciels (cf. Table
+\ref{tab:comparaison}), une bibliothèque en particulier se démarque. PyGaze est
+le candidat idéal ici, puisque elle permettrait d'être utilisée pour analyser
+les données librement et facilement, afin de créer des réprésentations visuelles
+du regard. Sinon, GazeParser pour servir pour effectuer des graphiques et
+représenter les données de façon plus chiffrée.
 
 % ----------------------------------------------------------------------------
 % CONCLUSION
 % ----------------------------------------------------------------------------
 
-\pagebreak
-
 \section{Conclusion}
 
-L'eye-tracking est une technologie assez bien recherchée, mais les études dans
-le domaine de la réalité virtuelle restent moindres. L'objectif de ce travail
-étant de développer des outils d'analyse de données d'oculométrie, il faut
-choisir un logiciel capable de créer des représentations pour des environments
-à deux dimensions et de réalité virtuelle également. La bibliothèque la plus
-intéressante à utiliser est PyGaze : elle nous permet de créer plusieurs cartes
-d'analyse et pourrait être une très utile pour développer des outils d'analyse
-en réalité virtuelle. Grâce aux capteurs Tobii et HTC Vive, il sera possible
-d'enregistrer des données, qui seront analysés par la suite pour enfin créer des
-représentations claires et précises de l'expérience, afin d'en tirer les bonnes
-conclusions.
+L'eye-tracking est une technologie qui présente un fort potentiel en recherche,
+mais les études dans le domaine de la réalité virtuelle restent peu nombreuses.
+L'objectif de ce travail étant de développer des outils d'analyse de données
+d'oculométrie, il faut choisir des bibliothèques capables de créer des représentations des données récupérées, pour des étude d'eye-tracking sur écran et en réalité virtuelle également. La bibliothèque la plus intéressante à utiliser est PyGaze : elle permet de génerer plusieurs cartes d'analyse et pourrait être une très utile pour développer des outils d'analyse en réalité virtuelle. GazeParser pourrait être tout à fait utile pour génerer des graphiques. Grâce aux capteurs Tobii et HTC Vive, il sera possible d'enregistrer des données, qui seront analysés par la suite pour enfin créer des représentations claires et précises, afin de comparer les différences du regard humain sur un écran et dans un monde virtuel.
 
 % ----------------------------------------------------------------------------
 % BIBLIOGRAPHIE
