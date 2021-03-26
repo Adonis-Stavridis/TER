@@ -1,14 +1,20 @@
 import csv
+from matplotlib.pyplot import savefig
 
-import numpy as np
-from numpy.core.defchararray import array
-from matplotlib import pyplot as plt
+from numpy.lib.function_base import disp
 
-from libs.PyGazeAnalyser.pygazeanalyser import gazeplotter
 import analyzer
 
 DATA_INPUT = 'data/Sujet 8/Sujet 8.csv'
 DATA_START = 97
+
+TEMP_DURATION = 0.07044232112
+
+OUTPUT_DIR = 'out/'
+
+TEMP_DISP_SIZE = [1920, 977]
+
+TEMP_INPUT_IMG = 'data/custom/img.png'
 
 
 def simplifyCSV(name, csvReader):
@@ -17,13 +23,14 @@ def simplifyCSV(name, csvReader):
 
   csvFile = open(f"{name}.csv", "w")
 
-  csvFile.write('Time,x,y\n')
+  csvFile.write('x,y,duration\n')
   for idx, row in enumerate(csvReader):
     if idx % 3 == 0:
-      timeVal = float(row[12].replace(',', '.'))
       xVal = float(row[13].replace(',', '.'))
       yVal = float(row[15].replace(',', '.'))
-      csvFile.write(f'{timeVal},{xVal},{yVal}\n')
+      # duration = float(row[12].replace(',', '.'))
+      duration = TEMP_DURATION
+      csvFile.write(f'{xVal},{yVal},{duration}\n')
 
   csvFile.close()
 
@@ -50,18 +57,52 @@ def pctToPixel(array, pixelSize):
   return [abs(int(val / 100 * pixelSize)) for val in array]
 
 
+def getFixations(csvReader, pixelSize):
+  for idx in range(DATA_START):
+    next(csvReader)
+
+  fixations = []
+
+  for row in csvReader:
+    duration = TEMP_DURATION
+    xVal = float(row[13].replace(',', '.'))
+    yVal = float(row[15].replace(',', '.'))
+
+    xVal = abs(int(xVal / 100.0 * pixelSize[0]))
+    yVal = abs(int(yVal / 100.0 * pixelSize[1]))
+
+    values = [duration, xVal, yVal]
+
+    fixations.append(values)
+
+  return fixations
+
+
 def main():
   csvFile = open(DATA_INPUT, encoding='utf-16')
   csvReader = csv.reader(csvFile, delimiter=';')
 
-  xPct, yPct = getFixationsPct(csvReader)
+  # simplifyCSV(f'{OUTPUT_DIR}test',csvReader)
 
-  imageSize = [1920, 977]
-  xArray = pctToPixel(xPct, imageSize[0])
-  yArray = pctToPixel(yPct, imageSize[1])
+  # xPct, yPct = getFixationsPct(csvReader)
 
-  figure = analyzer.draw_raw(
-      xArray, yArray, imageSize, 'data/custom/img.png', 'test.png')
+  # xArray = pctToPixel(xPct, TEMP_DISP_SIZE[0])
+  # yArray = pctToPixel(yPct, TEMP_DISP_SIZE[1])
+
+  # rawFigure = analyzer.draw_raw(
+  #     xArray, yArray, TEMP_DISP_SIZE, TEMP_INPUT_IMG,
+  #     f'{OUTPUT_DIR}raw')
+
+  fixations = getFixations(csvReader, TEMP_DISP_SIZE)
+
+  # fonctionne pas encore
+  fixationsFigure = analyzer.draw_fixations(
+      fixations, TEMP_DISP_SIZE, TEMP_INPUT_IMG,
+      savefilename=f'{OUTPUT_DIR}fixations')
+
+  heatmapFigure = analyzer.draw_heatmap(
+      fixations, TEMP_DISP_SIZE, TEMP_INPUT_IMG,
+      savefilename=f'{OUTPUT_DIR}heatmap')
 
 
 if __name__ == "__main__":

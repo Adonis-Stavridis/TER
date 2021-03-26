@@ -161,7 +161,7 @@ def draw_heatmap(fixations, dispsize, imagefile=None, durationweight=True, alpha
   gsdwh = gwh/6
   gaus = gaussian(gwh, gsdwh)
   # matrix of zeroes
-  strt = gwh/2
+  strt = int(gwh/2)
   heatmapsize = dispsize[1] + 2*strt, dispsize[0] + 2*strt
   heatmap = numpy.zeros(heatmapsize, dtype=float)
   # create heatmap
@@ -445,7 +445,7 @@ def parse_fixations(fixations):
           'dur': numpy.zeros(len(fixations))}
   # get all fixation coordinates
   for fixnr in range(len(fixations)):
-    stime, etime, dur, ex, ey = fixations[fixnr]
+    dur, ex, ey = fixations[fixnr]
     fix['x'][fixnr] = ex
     fix['y'][fixnr] = ey
     fix['dur'][fixnr] = dur

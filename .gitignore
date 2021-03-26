@@ -9,3 +9,6 @@ data
 
 # Python
 __pycache__
+
+# Output
+out
