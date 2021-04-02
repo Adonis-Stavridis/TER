@@ -3,7 +3,7 @@ from matplotlib.pyplot import savefig
 
 from numpy.lib.function_base import disp
 
-import analyzer
+from csvhandler import handleCSV, simplifyCSV
 
 DATA_INPUT = 'data/Sujet 8/Sujet 8.csv'
 DATA_START = 97
@@ -15,24 +15,6 @@ OUTPUT_DIR = 'out/'
 TEMP_DISP_SIZE = [1920, 977]
 
 TEMP_INPUT_IMG = 'data/custom/img.png'
-
-
-def simplifyCSV(name, csvReader):
-  for idx in range(DATA_START):
-    next(csvReader)
-
-  csvFile = open(f"{name}.csv", "w")
-
-  csvFile.write('x,y,duration\n')
-  for idx, row in enumerate(csvReader):
-    if idx % 3 == 0:
-      xVal = float(row[13].replace(',', '.'))
-      yVal = float(row[15].replace(',', '.'))
-      # duration = float(row[12].replace(',', '.'))
-      duration = TEMP_DURATION
-      csvFile.write(f'{xVal},{yVal},{duration}\n')
-
-  csvFile.close()
 
 
 def getFixationsPct(csvReader):
@@ -79,30 +61,31 @@ def getFixations(csvReader, pixelSize):
 
 
 def main():
-  csvFile = open(DATA_INPUT, encoding='utf-16')
-  csvReader = csv.reader(csvFile, delimiter=';')
+  handleCSV(DATA_INPUT, f'{OUTPUT_DIR}test.csv')
+  # csvFile = open(DATA_INPUT, encoding='utf-16')
+  # csvReader = csv.reader(csvFile, delimiter=';')
 
-  # simplifyCSV(f'{OUTPUT_DIR}test',csvReader)
+  # # simplifyCSV(f'{OUTPUT_DIR}test',csvReader)
 
-  # xPct, yPct = getFixationsPct(csvReader)
+  # # xPct, yPct = getFixationsPct(csvReader)
 
-  # xArray = pctToPixel(xPct, TEMP_DISP_SIZE[0])
-  # yArray = pctToPixel(yPct, TEMP_DISP_SIZE[1])
+  # # xArray = pctToPixel(xPct, TEMP_DISP_SIZE[0])
+  # # yArray = pctToPixel(yPct, TEMP_DISP_SIZE[1])
 
-  # rawFigure = analyzer.draw_raw(
-  #     xArray, yArray, TEMP_DISP_SIZE, TEMP_INPUT_IMG,
-  #     f'{OUTPUT_DIR}raw')
+  # # rawFigure = analyzer.draw_raw(
+  # #     xArray, yArray, TEMP_DISP_SIZE, TEMP_INPUT_IMG,
+  # #     f'{OUTPUT_DIR}raw')
 
-  fixations = getFixations(csvReader, TEMP_DISP_SIZE)
+  # fixations = getFixations(csvReader, TEMP_DISP_SIZE)
 
-  # fonctionne pas encore
-  fixationsFigure = analyzer.draw_fixations(
-      fixations, TEMP_DISP_SIZE, TEMP_INPUT_IMG,
-      savefilename=f'{OUTPUT_DIR}fixations')
+  # # fonctionne pas encore
+  # fixationsFigure = analyzer.draw_fixations(
+  #     fixations, TEMP_DISP_SIZE, TEMP_INPUT_IMG,
+  #     savefilename=f'{OUTPUT_DIR}fixations')
 
-  heatmapFigure = analyzer.draw_heatmap(
-      fixations, TEMP_DISP_SIZE, TEMP_INPUT_IMG,
-      savefilename=f'{OUTPUT_DIR}heatmap')
+  # heatmapFigure = analyzer.draw_heatmap(
+  #     fixations, TEMP_DISP_SIZE, TEMP_INPUT_IMG,
+  #     savefilename=f'{OUTPUT_DIR}heatmap')
 
 
 if __name__ == "__main__":
