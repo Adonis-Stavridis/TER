@@ -3,7 +3,7 @@ from matplotlib.pyplot import savefig
 
 from numpy.lib.function_base import disp
 
-from csvhandler import handleCSV, simplifyCSV
+from csvhandler import handleCSV
 
 DATA_INPUT = 'data/Sujet 8/Sujet 8.csv'
 DATA_START = 97
