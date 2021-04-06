@@ -1,8 +1,3 @@
-import csv
-from matplotlib.pyplot import savefig
-
-from numpy.lib.function_base import disp
-
 from csvhandler import handleCSV
 
 DATA_INPUT = 'data/Sujet 8/Sujet 8.csv'
@@ -62,6 +57,7 @@ def getFixations(csvReader, pixelSize):
 
 def main():
   handleCSV(DATA_INPUT, f'{OUTPUT_DIR}test.csv')
+  
   # csvFile = open(DATA_INPUT, encoding='utf-16')
   # csvReader = csv.reader(csvFile, delimiter=';')
 
