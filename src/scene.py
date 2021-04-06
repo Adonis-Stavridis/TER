@@ -55,6 +55,19 @@ class Scene:
     self.fixationsY_ = [abs(int(val / 100 * self.imgDims_[1]))
                         for val in self.fixationsY_]
 
+  def fixationsArray(self):
+    fixs = []
+
+    for idx in range(len(self.fixationsX_)):
+      duration = 0.1
+      fixX = self.fixationsX_[idx]
+      fixY = self.fixationsY_[idx]
+
+      values = [duration, fixX, fixY]
+      fixs.append(values)
+
+    return fixs
+
   def render(self, outputPath):
     assert self.fixationsX_
     assert self.fixationsY_
@@ -69,6 +82,7 @@ class Scene:
     #     fixations, self.imgDims_, self.imgPath_,
     #     savefilename=f"{outputPath}/fixations")
 
-    # heatmapFigure = analyzer.draw_heatmap(
-    #     fixations, self.imgDims_, self.imgPath_,
-    #     savefilename=f"{outputPath}/heatmap")
+    fixations = self.fixationsArray()
+    heatmapFigure = analyzer.draw_heatmap(
+        fixations, self.imgDims_, self.imgPath_,
+        savefilename=f"{outputPath}/heatmap-{self.number_}")

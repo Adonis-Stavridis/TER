@@ -129,5 +129,5 @@ class Analysis:
 
 
 if __name__ == "__main__":
-  analysis = Analysis("data/Sujet 14", "out")
+  analysis = Analysis("data/Sujet 8", "out")
   analysis.run()
