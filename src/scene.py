@@ -16,6 +16,7 @@ class Scene:
     self.imgPath_ = ""
     self.imgDims_ = (0, 0)
 
+    self.timestamps_ = []
     self.fixationsX_ = []
     self.fixationsY_ = []
     self.distance_ = []
@@ -27,6 +28,9 @@ class Scene:
 
   def getEnd(self):
     return self.end_
+
+  def appendTimestamps(self, value):
+    self.timestamps_.append(value)
 
   def appendFixationsX(self, value):
     self.fixationsX_.append(value)
@@ -57,9 +61,15 @@ class Scene:
 
   def fixationsArray(self):
     fixs = []
+    durs = []
+
+    for idx in range(len(self.timestamps_) - 1):
+      tempDur = self.timestamps_[idx+1] - self.timestamps_[idx]
+      durs.append(tempDur)
+    durs.append(durs[-1])
 
     for idx in range(len(self.fixationsX_)):
-      duration = 0.1
+      duration = durs[idx]
       fixX = self.fixationsX_[idx]
       fixY = self.fixationsY_[idx]
 

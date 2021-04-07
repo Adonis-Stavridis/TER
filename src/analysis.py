@@ -1,10 +1,10 @@
-import os
-
 import csv
 import os
 
 import csvhandler
 import scene
+
+from joblib import Parallel, delayed
 
 DATA_START = 97
 
@@ -31,6 +31,18 @@ class Analysis:
   def run(self):
     self.readCSV()
 
+    # njobs = multiprocessing.cpu_count()
+    Parallel(n_jobs=-1)(delayed(self.parallelRun)(scene) for scene in self.scenes_)
+
+  def parallelRun(self, scene):
+    assert self.scenes_
+    assert self.dataPath_
+    assert self.outputPath_
+
+    scene.loadImg(self.dataPath_)
+    scene.transformData()
+    scene.render(self.outputPath_)
+
   def handleCSV(self, dataName, inputPath):
     assert self.outputPath_
 
@@ -46,7 +58,6 @@ class Analysis:
 
     self.createScenes(csvReader)
     self.setupScenes(csvReader)
-    self.prepareScenes()
 
   def createScenes(self, csvReader):
     startArray = []
@@ -111,21 +122,12 @@ class Analysis:
       pupilLeft = float(row[4])
       pupilRight = float(row[5])
 
+      curScene.appendTimestamps(time)
       curScene.appendFixationsX(fixationsX)
       curScene.appendFixationsY(fixationsY)
       curScene.appendDistance(distance)
       curScene.appendPupilLeft(pupilLeft)
       curScene.appendPupilRight(pupilRight)
-
-  def prepareScenes(self):
-    assert self.scenes_
-    assert self.dataPath_
-    assert self.outputPath_
-
-    for scene in self.scenes_:
-      scene.loadImg(self.dataPath_)
-      scene.transformData()
-      scene.render(self.outputPath_)
 
 
 if __name__ == "__main__":
