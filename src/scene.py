@@ -23,6 +23,8 @@ class Scene:
     self.pupilLeft_ = []
     self.pupilRight_ = []
 
+    self.combinedFixations_ = []
+
   def getStart(self):
     return self.start_
 
@@ -59,10 +61,7 @@ class Scene:
     self.fixationsY_ = [abs(int(val / 100 * self.imgDims_[1]))
                         for val in self.fixationsY_]
 
-  def fixationsArray(self):
-    fixs = []
     durs = []
-
     for idx in range(len(self.timestamps_) - 1):
       tempDur = self.timestamps_[idx+1] - self.timestamps_[idx]
       durs.append(tempDur)
@@ -74,25 +73,24 @@ class Scene:
       fixY = self.fixationsY_[idx]
 
       values = [duration, fixX, fixY]
-      fixs.append(values)
-
-    return fixs
+      self.combinedFixations_.append(values)
 
   def render(self, outputPath):
+    self.renderRaw(outputPath)
+    self.renderHeatmap(outputPath)
+
+  def renderRaw(self, outputPath):
     assert self.fixationsX_
     assert self.fixationsY_
     assert self.imgDims_
     assert self.imgPath_
 
-    rawFigure = analyzer.draw_raw(
-        self.fixationsX_, self.fixationsY_, self.imgDims_, self.imgPath_,
-        savefilename=f"{outputPath}/raw-{self.number_}")
+    analyzer.draw_raw(self.fixationsX_, self.fixationsY_, self.imgDims_,
+                      self.imgPath_, f"{outputPath}/raw-{self.number_}")
 
-    # fixationsFigure = analyzer.draw_fixations(
-    #     fixations, self.imgDims_, self.imgPath_,
-    #     savefilename=f"{outputPath}/fixations")
+  def renderHeatmap(self, outputPath):
+    assert self.imgDims_
+    assert self.imgPath_
 
-    fixations = self.fixationsArray()
-    heatmapFigure = analyzer.draw_heatmap(
-        fixations, self.imgDims_, self.imgPath_,
-        savefilename=f"{outputPath}/heatmap-{self.number_}")
+    analyzer.draw_heatmap(self.combinedFixations_, self.imgDims_, self.imgPath_,
+                          savefilename=f"{outputPath}/heatmap-{self.number_}")

@@ -1,10 +1,10 @@
 import csv
 import os
 
+from joblib import Parallel, delayed
+
 import csvhandler
 import scene
-
-from joblib import Parallel, delayed
 
 DATA_START = 97
 
@@ -31,7 +31,6 @@ class Analysis:
   def run(self):
     self.readCSV()
 
-    # njobs = multiprocessing.cpu_count()
     Parallel(n_jobs=-1)(delayed(self.parallelRun)(scene) for scene in self.scenes_)
 
   def parallelRun(self, scene):
