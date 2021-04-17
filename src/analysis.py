@@ -31,7 +31,8 @@ class Analysis:
   def run(self):
     self.readCSV()
 
-    Parallel(n_jobs=-1)(delayed(self.parallelRun)(scene) for scene in self.scenes_)
+    Parallel(n_jobs=-1)(delayed(self.parallelRun)(scene)
+                        for scene in self.scenes_)
 
   def parallelRun(self, scene):
     assert self.scenes_
@@ -115,18 +116,30 @@ class Analysis:
       if time < curSceneStart:
         continue
 
-      fixationsX = float(row[1])
-      fixationsY = float(row[2])
-      distance = float(row[3])
-      pupilLeft = float(row[4])
-      pupilRight = float(row[5])
+      fixationsX = self.toFloat(row[1])
+      fixationsY = self.toFloat(row[2])
+      scrollX = self.toFloat(row[3])
+      scrollY = self.toFloat(row[4])
+      distance = self.toFloat(row[5])
+      pupilLeft = self.toFloat(row[6])
+      pupilRight = self.toFloat(row[7])
 
-      curScene.appendTimestamps(time)
-      curScene.appendFixationsX(fixationsX)
-      curScene.appendFixationsY(fixationsY)
-      curScene.appendDistance(distance)
-      curScene.appendPupilLeft(pupilLeft)
-      curScene.appendPupilRight(pupilRight)
+      if fixationsX >= 0 and fixationsX <= 100 and \
+              fixationsY >= 0 and fixationsY <= 100:
+        curScene.appendTimestamps(time)
+        curScene.appendFixationsX(fixationsX)
+        curScene.appendFixationsY(fixationsY)
+        curScene.appendScrollX(scrollX)
+        curScene.appendScrollY(scrollY)
+        curScene.appendDistance(distance)
+        curScene.appendPupilLeft(pupilLeft)
+        curScene.appendPupilRight(pupilRight)
+
+  def toFloat(self, string):
+    if (string):
+      return float(string)
+
+    return 0.0
 
 
 if __name__ == "__main__":

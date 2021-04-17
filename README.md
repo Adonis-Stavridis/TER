@@ -25,3 +25,5 @@ a droite tableau different pour les images
   - fixations y
   - distance
 - Envoyer mail avec les questions pour donnees
+
+- Gérer le scroll

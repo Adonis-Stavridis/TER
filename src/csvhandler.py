@@ -10,6 +10,8 @@ IMG_URL = 35
 DATA_TIME = 2
 DATA_FIX_X = 13
 DATA_FIX_Y = 15
+DATA_SCROLL_X = 17
+DATA_SCROLL_Y = 19
 DATA_DIST = 3
 DATA_L_PUP = 5
 DATA_R_PUP = 7
@@ -56,18 +58,20 @@ def transformCSV(inputFile, outputFile):
     next(csvReader)
 
   outFile.write(
-      "Temps, Fixations/X, Fixations/Y, Distance, Pupille/Gauche, Pupille\Droite\n")
+      "Temps, Fixations/X, Fixations/Y, Scroll/X, Scroll/Y, Distance, Pupille/Gauche, Pupille\Droite\n")
 
   for row in csvReader:
     temps = row[DATA_TIME]
     fixationsX = row[DATA_FIX_X]
     fixationsY = row[DATA_FIX_Y]
+    scrollX = row[DATA_SCROLL_X]
+    scrollY = row[DATA_SCROLL_Y]
     distance = row[DATA_DIST]
     pupilleGauche = row[DATA_L_PUP]
     pupilleDroite = row[DATA_R_PUP]
 
     outFile.write(
-        f"{temps}, {fixationsX}, {fixationsY}, {distance}, {pupilleGauche}, {pupilleDroite}\n")
+        f"{temps},{fixationsX},{fixationsY},{scrollX},{scrollY},{distance}, {pupilleGauche},{pupilleDroite}\n")
 
   inFile.close()
   outFile.close()

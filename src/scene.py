@@ -19,6 +19,8 @@ class Scene:
     self.timestamps_ = []
     self.fixationsX_ = []
     self.fixationsY_ = []
+    self.scrollsX_ = []
+    self.scrollsY_ = []
     self.distance_ = []
     self.pupilLeft_ = []
     self.pupilRight_ = []
@@ -40,6 +42,12 @@ class Scene:
   def appendFixationsY(self, value):
     self.fixationsY_.append(value)
 
+  def appendScrollX(self, value):
+    self.scrollsX_.append(value)
+
+  def appendScrollY(self, value):
+    self.scrollsY_.append(value)
+
   def appendDistance(self, value):
     self.distance_.append(value)
 
@@ -56,10 +64,14 @@ class Scene:
     self.imgDims_ = Image.open(self.imgPath_).size
 
   def transformData(self):
-    self.fixationsX_ = [abs(int(val / 100 * self.imgDims_[0]))
+    self.fixationsX_ = [int(val / 100 * self.imgDims_[0])
                         for val in self.fixationsX_]
-    self.fixationsY_ = [abs(int(val / 100 * self.imgDims_[1]))
+    self.fixationsY_ = [int(val / 100 * self.imgDims_[1])
                         for val in self.fixationsY_]
+
+    for i in range(len(self.scrollsX_)):
+      self.fixationsX_[i] -= int(self.scrollsX_[i] / 100 * self.imgDims_[0])
+      self.fixationsY_[i] -= int(self.scrollsY_[i] / 100 * self.imgDims_[1])
 
     durs = []
     for idx in range(len(self.timestamps_) - 1):
