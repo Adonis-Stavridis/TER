@@ -1,18 +1,15 @@
 import csv
 import os
-from os.path import dirname
 
 from joblib import Parallel, delayed
 
 import csvhandler
 import scene
 
-DATA_START = 97
-
 
 class Analysis:
 
-  def __init__(self, dataPath, outPath, handlecsv=True):
+  def __init__(self, datatype, dataPath, outPath, handlecsv=True):
     self.dataPath_ = dataPath
 
     dataName = os.path.basename(self.dataPath_)
@@ -28,7 +25,7 @@ class Analysis:
       os.mkdir(self.outputPath_)
 
     if handlecsv:
-      self.csvPath_ = self.handleCSV(dataName, inputPath)
+      self.csvPath_ = self.handleCSV(datatype, dataName, inputPath)
     else:
       self.csvPath_ = inputPath
 
@@ -49,17 +46,17 @@ class Analysis:
     scene.transformData()
     scene.render(self.outputPath_)
 
-  def handleCSV(self, dataName, inputPath):
+  def handleCSV(self, datatype, dataName, inputPath):
     assert self.outputPath_
 
     outputPath = f"{self.outputPath_}/{dataName}.csv"
-    csvhandler.handleCSV(inputPath, outputPath)
+    csvhandler.handleCSV(datatype, inputPath, outputPath)
     return outputPath
 
   def readCSV(self):
     assert self.csvPath_
 
-    csvFile = open(self.csvPath_, encoding='utf-16')
+    csvFile = open(self.csvPath_)
     csvReader = csv.reader(csvFile)
 
     self.createScenes(csvReader)
