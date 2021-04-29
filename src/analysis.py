@@ -1,5 +1,6 @@
 import csv
 import os
+from os.path import dirname
 
 from joblib import Parallel, delayed
 
@@ -15,8 +16,13 @@ class Analysis:
     self.dataPath_ = dataPath
 
     dataName = os.path.basename(self.dataPath_)
+    catName = os.path.basename(os.path.dirname(self.dataPath_))
     inputPath = f"{self.dataPath_}/{dataName}.csv"
-    self.outputPath_ = f"{outPath}/{dataName}"
+    dirName = f"{outPath}/{catName}"
+    self.outputPath_ = f"{dirName}/{dataName}"
+
+    if not os.path.exists(dirName):
+      os.mkdir(dirName)
 
     if not os.path.exists(self.outputPath_):
       os.mkdir(self.outputPath_)
@@ -31,7 +37,8 @@ class Analysis:
   def run(self):
     self.readCSV()
 
-    Parallel(n_jobs=-1)(delayed(self.parallelRun)(scene) for scene in self.scenes_)
+    Parallel(n_jobs=-1)(delayed(self.parallelRun)(scene)
+                        for scene in self.scenes_)
 
   def parallelRun(self, scene):
     assert self.scenes_
