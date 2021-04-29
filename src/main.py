@@ -2,7 +2,7 @@ import sys
 
 from analysis import Analysis
 
-DEBUG_IN = "data/Sujet 14"
+DEBUG_IN = "data/Sujet 8"
 DEBUG_OUT = "out"
 
 
