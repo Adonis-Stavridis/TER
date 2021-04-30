@@ -9,7 +9,7 @@ import scene
 
 class Analysis:
 
-  def __init__(self, datatype, dataPath, outPath, handlecsv=True):
+  def __init__(self, dataPath, outPath, handlecsv=True):
     self.dataPath_ = dataPath
 
     dataName = os.path.basename(self.dataPath_)
@@ -17,6 +17,7 @@ class Analysis:
     inputPath = f"{self.dataPath_}/{dataName}.csv"
     dirName = f"{outPath}/{catName}"
     self.outputPath_ = f"{dirName}/{dataName}"
+    self.catName_ = catName
 
     if not os.path.exists(dirName):
       os.mkdir(dirName)
@@ -25,7 +26,7 @@ class Analysis:
       os.mkdir(self.outputPath_)
 
     if handlecsv:
-      self.csvPath_ = self.handleCSV(datatype, dataName, inputPath)
+      self.csvPath_ = self.handleCSV(catName, dataName, inputPath)
     else:
       self.csvPath_ = inputPath
 
@@ -46,17 +47,22 @@ class Analysis:
     scene.transformData()
     scene.render(self.outputPath_)
 
-  def handleCSV(self, datatype, dataName, inputPath):
+  def handleCSV(self, catName, dataName, inputPath):
     assert self.outputPath_
 
     outputPath = f"{self.outputPath_}/{dataName}.csv"
-    csvhandler.handleCSV(datatype, inputPath, outputPath)
+    csvhandler.handleCSV(catName, inputPath, outputPath)
     return outputPath
 
   def readCSV(self):
     assert self.csvPath_
 
-    csvFile = open(self.csvPath_)
+    if self.catName_ == "tea":
+      encoding = "utf-16"
+    else:
+      encoding = "utf-8"
+
+    csvFile = open(self.csvPath_, encoding=encoding)
     csvReader = csv.reader(csvFile)
 
     self.createScenes(csvReader)

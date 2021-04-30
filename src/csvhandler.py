@@ -5,9 +5,14 @@ from data import Tea, Vr
 import chardet
 
 
-def simplifyCSV(inputFile, outputFile):
-  inFile = open(inputFile, 'r')
-  outFile = open(outputFile, 'w')
+def simplifyCSV(catName, inputFile, outputFile):
+  if catName == "tea":
+    encoding = "utf-16"
+  else:
+    encoding = "utf-8"
+
+  inFile = open(inputFile, 'r', encoding=encoding)
+  outFile = open(outputFile, 'w', encoding=encoding)
 
   for line in inFile:
     replaceCommas = line.replace(',', '.')
@@ -19,8 +24,8 @@ def simplifyCSV(inputFile, outputFile):
 
 
 def teaTransformCSV(inputFile, outputFile):
-  inFile = open(inputFile, 'r')
-  outFile = open(outputFile, 'w')
+  inFile = open(inputFile, 'r', encoding="utf-16")
+  outFile = open(outputFile, 'w', encoding="utf-16")
 
   csvReader = csv.reader(inFile, delimiter=',')
 
@@ -95,13 +100,13 @@ def vrTransformCSV(inputFile, outputFile):
   outFile.close()
 
 
-def handleCSV(datatype, inputFile, outputFile):
+def handleCSV(catName, inputFile, outputFile):
   outFolder = os.path.dirname(outputFile)
   tempFile = f"{outFolder}/temp.csv"
-  simplifyCSV(inputFile, tempFile)
-  if datatype == 'tea':
+  simplifyCSV(catName, inputFile, tempFile)
+  if catName == 'tea':
     teaTransformCSV(tempFile, outputFile)
-  elif datatype == 'vr':
+  elif catName == 'vr':
     vrTransformCSV(tempFile, outputFile)
   else:
     sys.exit(
