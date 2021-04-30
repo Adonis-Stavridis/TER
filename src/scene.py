@@ -78,6 +78,7 @@ class Scene:
   def render(self, outputPath):
     self.renderRaw(outputPath)
     self.renderHeatmap(outputPath)
+    # self.renderScanpath(outputPath)
 
   def renderRaw(self, outputPath):
     assert self.fixationsX_
@@ -94,3 +95,11 @@ class Scene:
 
     analyzer.draw_heatmap(self.combinedFixations_, self.imgDims_, self.imgPath_,
                           savefilename=f"{outputPath}/heatmap-{self.number_}")
+
+  def renderScanpath(self, outputPath):
+    assert self.imgDims_
+    assert self.imgPath_
+
+    analyzer.draw_scanpath(self.combinedFixations_, [],
+                           self.imgDims_, self.imgPath_,
+                           savefilename=f"{outputPath}/scanpath-{self.number_}")
