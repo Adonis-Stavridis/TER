@@ -153,14 +153,14 @@ un casque HTC Vive avec capteur intergré pour la réalité virtuelle (cf. Figur
 
 Après avoir récupéré les données brutes d'une séance d'oculométrie, il faut
 pouvoir les analyser afin d'en tirer des informations pertinentes. Les
-données sont une série de valeurs numériques (cf. Figure \ref{fiées de façon 
-plus explicite.}), représentants les positions du regard dans un environnement, 
-mais sont difficilement compréhensibles telles quelles. Pour cela, il serait 
-beaucoup plus intéressant de transformer les données en des réprésentations 
-imagées et graphiques de différents types. Il existe différentes mesures et 
-termes utilisés pour analyser le regard \cite{imotions:metrics}, chacune 
-organisant les données de façon à avoir une analyse compléte, étudiant tous les 
-aspects du regard.
+données sont une série de valeurs numériques (cf. Figure \ref{fig:donnees}),
+représentants les positions du regard dans un environnement, mais sont
+difficilement compréhensibles telles quelles. Pour cela, il serait beaucoup
+plus intéressant de transformer les données en des réprésentations imagées et
+graphiques de différents types. Il existe différentes mesures et termes
+utilisés pour analyser le regard \cite{imotions:metrics}, chacune organisant
+les données de façon à avoir une analyse compléte, étudiant tous les aspects du
+regard.
 
 \begin{figure}[htpb]
   \begin{verbatim}
@@ -176,9 +176,9 @@ aspects du regard.
     2.00 : 20, 33
   \end{verbatim}
   \caption{Exemple de données fournies par les logiciels de capteurs, avec une
-    indication du temps et de la position du regard (en pixels ou en
-    pourcentages) sur l'axe horizontal et vertical.}
-  \label{fiées de façon plus explicite.}
+    indication du temps et de la position du regard (en pourcentages) sur l'axe
+    horizontal et vertical.}
+  \label{fig:donnees}
 \end{figure}
 
 \subsection{Points de fixation}
@@ -220,24 +220,6 @@ l'une des représentations les plus importantes pour comprendre la saillance des
     \cite{img:heatmap}.}
   \label{fig:heatmap}
 \end{figure}
-
-\subsection{Zones d'intérêt}
-
-Une zone d'intérêt n'est pas vraiment une représentation mais un outil qui
-permet de spécifier des zones, des objets au préalable, pour en extraire leurs
-mesures. C'est un outil pratique pour bien séparer les différentes zones d'un
-environnement d'étude, et déterminer les régions les plus importantes. Dans les
-mesures de chaque zone, il serait intéressant d'y calculer :
-
-\begin{itemize}
-  \item le délai à la première fixation : le temps qu'un individu à mis
-        depuis le début pour fixer une zone pour la première fois.
-  \item la durée de fixation : la somme du temps qu'un individu a passé a
-        fixer une zone.
-  \item le nombre de fixations : le nombre de fois qu'un individu à fixé
-        une zone, puisque le regard peut fixer une zone, la quitter et
-        puis revenir dessus.
-\end{itemize}
 
 \bigskip
 Il existe donc plusieurs façons d'organiser les données et de les représenter

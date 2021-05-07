@@ -67,15 +67,19 @@ def teaTransformCSV(inputFile, outputFile):
   outFile.close()
 
 
-def vrTransformCSV(inputFile, outputFile):
+def vrTransformCSV(inputFile, dataFile, outputFile):
   inFile = open(inputFile, 'r')
   outFile = open(outputFile, 'w')
 
   csvReader = csv.reader(inFile, delimiter=',')
 
-  imgFile = os.path.basename(os.path.dirname(outputFile))
+  imgDir = os.listdir(f"{os.path.dirname(dataFile)}/img")
+  imgNames = [float(os.path.splitext(img)[0]) for img in imgDir]
+  imgNames.sort()
+
   outFile.write("Temps, Image\n")
-  outFile.write(f"0.0, {imgFile}\n")
+  for img in imgNames:
+    outFile.write(f"{img}, {img}\n")
   outFile.write(f"{float('inf')},\n")
   outFile.write("\n")
 
@@ -106,7 +110,7 @@ def handleCSV(catName, inputFile, outputFile):
   if catName == 'tea':
     teaTransformCSV(tempFile, outputFile)
   elif catName == 'vr':
-    vrTransformCSV(tempFile, outputFile)
+    vrTransformCSV(tempFile, inputFile, outputFile)
   else:
     sys.exit(
         "Usage: python3 csvhandler.py [-s|-t] <tea|vr> <inputFile> <outputFile>")
