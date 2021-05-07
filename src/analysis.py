@@ -19,6 +19,9 @@ class Analysis:
     self.outputPath_ = f"{dirName}/{dataName}"
     self.catName_ = catName
 
+    if not os.path.exists(outPath):
+      os.mkdir(outPath)
+
     if not os.path.exists(dirName):
       os.mkdir(dirName)
 

@@ -2,7 +2,6 @@ import csv
 import os
 import sys
 from data import Tea, Vr
-import chardet
 
 
 def simplifyCSV(catName, inputFile, outputFile):

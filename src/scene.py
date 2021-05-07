@@ -52,7 +52,7 @@ class Scene:
   def loadImg(self, dataPath):
     assert self.img_
 
-    self.imgPath_ = f"{dataPath}/Web/{self.img_}.png"
+    self.imgPath_ = f"{dataPath}/img/{self.img_}.png"
     self.imgDims_ = Image.open(self.imgPath_).size
 
   def transformData(self):
