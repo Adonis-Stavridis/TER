@@ -1,4 +1,5 @@
 from PIL import Image
+import matplotlib
 
 import analyzer
 
@@ -56,6 +57,9 @@ class Scene:
     self.imgDims_ = Image.open(self.imgPath_).size
 
   def transformData(self):
+    if (not self.timestamps_ or not self.fixationsX_ or not self.fixationsY_):
+      return
+
     self.fixationsX_ = [abs(int(val / 100 * self.imgDims_[0]))
                         for val in self.fixationsX_]
     self.fixationsY_ = [abs(int(val / 100 * self.imgDims_[1]))
@@ -81,24 +85,39 @@ class Scene:
     # self.renderScanpath(outputPath)
 
   def renderRaw(self, outputPath):
-    assert self.fixationsX_
-    assert self.fixationsY_
     assert self.imgDims_
     assert self.imgPath_
 
-    analyzer.draw_raw(self.fixationsX_, self.fixationsY_, self.imgDims_,
-                      self.imgPath_, f"{outputPath}/raw-{self.number_}")
+    if (not self.fixationsX_ or not self.fixationsY_):
+      return
+
+    print(f"Rendering : {outputPath}/raw-{self.number_}")
+    figure = analyzer.draw_raw(self.fixationsX_, self.fixationsY_,
+                               self.imgDims_, self.imgPath_,
+                               f"{outputPath}/raw-{self.number_}")
+
+    matplotlib.pyplot.close(figure)
 
   def renderHeatmap(self, outputPath):
     assert self.imgDims_
     assert self.imgPath_
 
-    analyzer.draw_heatmap(self.combinedFixations_, self.imgDims_, self.imgPath_,
-                          savefilename=f"{outputPath}/heatmap-{self.number_}")
+    if not self.combinedFixations_:
+      return
+
+    print(f"Rendering : {outputPath}/heatmap-{self.number_}")
+    figure = analyzer.draw_heatmap(self.combinedFixations_, self.imgDims_,
+                                   self.imgPath_,
+                                   savefilename=f"{outputPath}/heatmap-{self.number_}")
+
+    matplotlib.pyplot.close(figure)
 
   def renderScanpath(self, outputPath):
     assert self.imgDims_
     assert self.imgPath_
+
+    if not self.combinedFixations_:
+      return
 
     analyzer.draw_scanpath(self.combinedFixations_, [],
                            self.imgDims_, self.imgPath_,

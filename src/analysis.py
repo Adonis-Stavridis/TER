@@ -134,14 +134,13 @@ class Analysis:
       pupilLeft = float(row[4])
       pupilRight = float(row[5])
 
+      if (fixationsX < 0 or fixationsX > 100 or fixationsY < 0 or
+              fixationsY > 100):
+        continue
+
       curScene.appendTimestamps(time)
       curScene.appendFixationsX(fixationsX)
       curScene.appendFixationsY(fixationsY)
       curScene.appendDistance(distance)
       curScene.appendPupilLeft(pupilLeft)
       curScene.appendPupilRight(pupilRight)
-
-
-if __name__ == "__main__":
-  analysis = Analysis("data/Sujet 8", "out")
-  analysis.run()
