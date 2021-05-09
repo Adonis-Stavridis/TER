@@ -1,5 +1,5 @@
-from PIL import Image
 import matplotlib
+from PIL import Image
 
 import analyzer
 
@@ -91,11 +91,10 @@ class Scene:
     if (not self.fixationsX_ or not self.fixationsY_):
       return
 
-    print(f"Rendering : {outputPath}/raw-{self.number_}")
+    print(f"Rendering: {outputPath}/raw-{self.number_}")
     figure = analyzer.draw_raw(self.fixationsX_, self.fixationsY_,
                                self.imgDims_, self.imgPath_,
                                f"{outputPath}/raw-{self.number_}")
-
     matplotlib.pyplot.close(figure)
 
   def renderHeatmap(self, outputPath):
@@ -105,11 +104,10 @@ class Scene:
     if not self.combinedFixations_:
       return
 
-    print(f"Rendering : {outputPath}/heatmap-{self.number_}")
+    print(f"Rendering: {outputPath}/heatmap-{self.number_}")
     figure = analyzer.draw_heatmap(self.combinedFixations_, self.imgDims_,
                                    self.imgPath_,
                                    savefilename=f"{outputPath}/heatmap-{self.number_}")
-
     matplotlib.pyplot.close(figure)
 
   def renderScanpath(self, outputPath):
@@ -119,6 +117,8 @@ class Scene:
     if not self.combinedFixations_:
       return
 
-    analyzer.draw_scanpath(self.combinedFixations_, [],
+    print(f"Rendering: {outputPath}/scanpath-{self.number_}")
+    figure = analyzer.draw_scanpath(self.combinedFixations_, [],
                            self.imgDims_, self.imgPath_,
                            savefilename=f"{outputPath}/scanpath-{self.number_}")
+    matplotlib.pyplot.close(figure)
