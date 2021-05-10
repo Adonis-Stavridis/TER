@@ -8,8 +8,27 @@ import scene
 
 
 class Analysis:
+  """
+  Analysis Analyse an eye-tracking study
 
-  def __init__(self, dataPath, outPath, handlecsv=True):
+  Attrs:
+      dataPath_ (str): path to data of study folder
+      outputPath_ (str): path to output folder
+      catName_ (str): name of category of study (tea or vr)
+      csvPath_ (str): path to transformed csv data
+      scenes_ (array of Scene): array of scenes in study to analyse
+  """
+
+  def __init__(self, dataPath, outPath, handlecsv=True) -> None:
+    """
+    __init__ Initialize Analysis
+
+    Args:
+        dataPath (str): path to data study folder
+        outPath (str): path to output folder
+        handlecsv (bool, optional): call a csvhandler function to tranform csv. Defaults to True.
+    """
+
     self.dataPath_ = dataPath
 
     dataName = os.path.basename(self.dataPath_)
@@ -35,13 +54,27 @@ class Analysis:
 
     self.scenes_ = []
 
-  def run(self):
+  def run(self) -> None:
+    """
+    run Run analysis
+
+    This reads the data in the csv file, creates all of the necessary scenes and
+    finally renders the data of each scene in parallel.
+    """
+
     self.readCSV()
 
     Parallel(n_jobs=-1)(delayed(self.parallelRun)(scene)
                         for scene in self.scenes_)
 
-  def parallelRun(self, scene):
+  def parallelRun(self, scene) -> None:
+    """
+    parallelRun Function called in parallel to render analysis data for a scene
+
+    Args:
+        scene (Scene): scene to be rendered
+    """
+
     assert self.scenes_
     assert self.dataPath_
     assert self.outputPath_
@@ -50,14 +83,32 @@ class Analysis:
     scene.transformData()
     scene.render(self.outputPath_)
 
-  def handleCSV(self, catName, dataName, inputPath):
+  def handleCSV(self, catName, dataName, inputPath) -> str:
+    """
+    handleCSV Transform csv file to a template csv file according to the
+    category of the study
+
+    Args:
+        catName (str): name of category of study (tea or vr)
+        dataName (str): name of study
+        inputPath (str): path to input csv file
+
+    Returns:
+        str: [description]
+    """
+
     assert self.outputPath_
 
     outputPath = f"{self.outputPath_}/{dataName}.csv"
     csvhandler.handleCSV(catName, inputPath, outputPath)
+
     return outputPath
 
-  def readCSV(self):
+  def readCSV(self) -> None:
+    """
+    readCSV Read transformed csv in order to create and setup scenes of study
+    """
+
     assert self.csvPath_
 
     if self.catName_ == "tea":
@@ -71,7 +122,14 @@ class Analysis:
     self.createScenes(csvReader)
     self.setupScenes(csvReader)
 
-  def createScenes(self, csvReader):
+  def createScenes(self, csvReader) -> None:
+    """
+    createScenes Create scenes, one for each image in the study
+
+    Args:
+        csvReader (_reader): csv reader iterator of python csv library
+    """
+
     startArray = []
     endArray = []
     imgArray = []
@@ -102,7 +160,14 @@ class Analysis:
       sceneNumber += 1
       self.scenes_.append(newScene)
 
-  def setupScenes(self, csvReader):
+  def setupScenes(self, csvReader) -> None:
+    """
+    setupScenes Setup scenes for rendering
+
+    Args:
+        csvReader (_reader): csv reader iterator of python csv library
+    """
+
     assert self.scenes_
 
     scenesNumber = len(self.scenes_)

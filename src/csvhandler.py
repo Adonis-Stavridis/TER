@@ -1,10 +1,21 @@
 import csv
 import os
 import sys
+
 from data import Tea, Vr
 
 
-def simplifyCSV(catName, inputFile, outputFile):
+def simplifyCSV(catName, inputFile, outputFile) -> None:
+  """
+  simplifyCSV Simplifies csv file by replacing string values with castable
+  float values, and sets ',' as separator
+
+  Args:
+      catName (str): name of category of study (tea or vr)
+      inputFile (str): path to input csv file
+      outputFile (str): path to output folder
+  """
+
   if catName == "tea":
     encoding = "utf-16"
   else:
@@ -22,7 +33,15 @@ def simplifyCSV(catName, inputFile, outputFile):
   outFile.close()
 
 
-def teaTransformCSV(inputFile, outputFile):
+def teaTransformCSV(inputFile, outputFile) -> None:
+  """
+  teaTransformCSV Transform csv file for a Tea study
+
+  Args:
+      inputFile (str): path to input csv file
+      outputFile (str): path to output folder
+  """
+
   inFile = open(inputFile, 'r', encoding="utf-16")
   outFile = open(outputFile, 'w', encoding="utf-16")
 
@@ -67,7 +86,16 @@ def teaTransformCSV(inputFile, outputFile):
   outFile.close()
 
 
-def vrTransformCSV(inputFile, dataFile, outputFile):
+def vrTransformCSV(inputFile, dataFile, outputFile) -> None:
+  """
+  vrTransformCSV Transform csv file for a Vr study
+
+  Args:
+      inputFile (str): path to input csv file
+      dataFile (str): path to original csv file
+      outputFile (str): path to output folder
+  """
+
   inFile = open(inputFile, 'r')
   outFile = open(outputFile, 'w')
 
@@ -103,7 +131,16 @@ def vrTransformCSV(inputFile, dataFile, outputFile):
   outFile.close()
 
 
-def handleCSV(catName, inputFile, outputFile):
+def handleCSV(catName, inputFile, outputFile) -> None:
+  """
+  handleCSV Transform csv file into template csv file format
+
+  Args:
+      catName (str): name of category of study (tea or vr)
+      inputFile (str): path to input csv file
+      outputFile (str): path to output folder
+  """
+  
   outFolder = os.path.dirname(outputFile)
   tempFile = f"{outFolder}/temp.csv"
   simplifyCSV(catName, inputFile, tempFile)
@@ -117,7 +154,12 @@ def handleCSV(catName, inputFile, outputFile):
   os.remove(tempFile)
 
 
-def main():
+def main() -> None:
+  """
+  main Tool for transforming an input csv file of category Tea or Vr into a
+  more understandable template csv file
+  """
+
   args = sys.argv
   if len(args) < 4 or len(args) > 5:
     sys.exit(

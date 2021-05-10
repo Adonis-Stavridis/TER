@@ -1,7 +1,16 @@
 import os
 import sys
 
-def renameImgs(inputPath):
+
+def renameImgs(inputPath) -> None:
+  """
+  renameImgs Rename images by replacing string filenames with castable
+  float values
+
+  Args:
+      inputPath (str): path to data of study folder
+  """
+
   imgPath = f"{inputPath}/img"
   imgDir = os.listdir(imgPath)
 
@@ -11,7 +20,11 @@ def renameImgs(inputPath):
     os.rename(f"{imgPath}/{oldName}", f"{imgPath}/{newName}")
 
 
-def main():
+def main() -> None:
+  """
+  main Tool for handling data before analysis
+  """
+
   args = sys.argv
 
   if len(args) == 2:

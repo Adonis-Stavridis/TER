@@ -2,6 +2,10 @@ from enum import IntEnum
 
 
 class Tea(IntEnum):
+  """
+  Tea Enumeration for Tea studies
+  """
+
   DATA_START = 97
   IMG_TIME = 34
   IMG_URL = 35
@@ -14,6 +18,10 @@ class Tea(IntEnum):
 
 
 class Vr(IntEnum):
+  """
+  Vr Enumeration for Vr studies
+  """
+
   DATA_TIME = 2
   DATA_FIX_X = 3
   DATA_FIX_Y = 4

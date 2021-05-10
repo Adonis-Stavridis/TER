@@ -2,11 +2,15 @@ import sys
 
 from analysis import Analysis
 
-DEBUG_IN = "data/vr/Sujet 2"
+DEBUG_IN = "data/vr/Sujet 1"
 DEBUG_OUT = "out"
 
 
-def main():
+def main() -> None:
+  """
+  main Tool for analysing eye-tracking data
+  """
+
   args = sys.argv
 
   if len(args) == 1:
