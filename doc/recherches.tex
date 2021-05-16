@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[hidelinks,12pt]{article}
 
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
@@ -8,6 +8,9 @@
 \usepackage{graphicx}
 \usepackage{pifont}
 \usepackage{subfig}
+\usepackage{listings}
+\usepackage{changepage}
+\usepackage{hyperref}
 
 \graphicspath{ {./img/} }
 
@@ -16,7 +19,7 @@
 
 \title{\textbf{Analyse de données d’eye-tracking en Réalité Virtuelle}}
 \author{\Large{Adonis Stavridis}}
-\date{Février 2021}
+\date{Mai 2021}
 
 \begin{document}
 
@@ -34,15 +37,15 @@
 
 \section{Introduction}
 
-L'eye-tracking \cite{wiki:eye_tracking}, ou oculométrie, est une technologie
+L'eye-tracking \cite{wiki_eye_tracking}, ou oculométrie, est une technologie
 qui permet de reconnaître la position du regard d'un individu dans un
 environnement virtuel ou réel. Elle fournit un moyen de suivre les processus
 attentionnels d'un utilisateur et permet d'établir une interface entre
 Homme et machine. Cette technique peut être très utilisée pour les études liées
 au système visuel humain, à la psychologie, au marketing et au design. Elle est
-dèjà utilisée dans les jeux vidéos. Bien que cette technologie soit bien connue
-et utilisée dans de multiples domaines de recherche, elle est encore peu
-exploitée dans le domaine de la réalité virtuelle.
+en fait dèjà utilisée dans les jeux vidéos. Bien que cette technologie soit
+bien connue et employée dans multiples domaines de recherche, elle est encore p
+peu exploitée dans le domaine de la réalité virtuelle.
 
 \bigskip
 Déterminer la position du regard d'un individu dans un environnement permet
@@ -58,7 +61,7 @@ ainsi pousser à l'avancement des recherches sur le comportement humain.
 
 \bigskip
 L'objectif de ce travail consiste à développer des outils d'analyse des données
-d'oculométrie afin de comparer le regard face à un écran ou dans un
+d'oculométrie afin de comparer le regard face à un écran et dans un
 environnement de réalité virtuelle. La visualisation et l'analyse des données
 oculaires, peut être effectuée en temps réel ou par l'intermédiaire d'une
 application. En vue de ce travail de recherche, un premier environnement (cf.
@@ -68,7 +71,7 @@ environnement de réalité virtuelle. Un individu se place devant un écran et
 observe différents supports, quant à la réalité virtuelle, l'individu porte un
 casque et se retrouve dans ce même environnement face à un écran, cette fois-ci,
 dans un monde virtuel. A partir des données recueillies au cours de sessions
-exprimentales, il faudrait générer des supports (images et graphiques)
+expérimentales, il faudrait générer des supports (images et graphiques)
 qui rassemblent toutes les informations nécessaires pour une analyse compléte de
 l'étude. Il existe certaines bibliothèques et logiciels qui permettent de
 traiter ces données, mais toutes ne présentent pas les mêmes fonctionnalités.
@@ -77,7 +80,7 @@ traiter ces données, mais toutes ne présentent pas les mêmes fonctionnalités
   \centering
   \includegraphics[width=0.75\textwidth,keepaspectratio=true]{environnement.png}
   \caption{Rendu de l'environnement mis en place en réalité virtuelle pour
-    effectuer des mesures d'oculométrie \cite{img:environnement}.}
+    effectuer des mesures d'oculométrie \cite{img_environnement}.}
   \label{fig:environnement}
 \end{figure}
 
@@ -87,7 +90,8 @@ meilleurs atouts pour réaliser ces supports. Pour cela, il faut d'abord
 comprendre comment sont récupérées les données, comment elle sont structurées
 et puis identifier les types de support pertinents pour une analyse compléte,
 afin de déterminer la bibliothèque la plus intéressante à utiliser pour
-accomplir ce travail.
+accomplir ce travail. Enfin, il faut programmer cet outil et vérifier que les
+résultats obtenus sont cohérents avec les données d'entrée.
 
 % ------------------------------------------------------------------------------
 % CAPTEURS
@@ -114,14 +118,15 @@ Les deux types de capteurs utilisés dans ce travail sont les suivants :
         capteurs similaires aux précédents, mais qui ont été modifiés pour
         s'intégrer dans des casques de réalité virtuelle et observer les yeux à
         une distance beaucoup plus courte. Ces capteurs permettent de suivre le
-        regard dans un environnement virtuel à trois dimensions. Un avantage à
-        cette technologie est le rendu fovéal \cite{wiki:foveated_rendering}.
+        regard dans un environnement virtuel à trois dimensions. Ce type de
+        capteur peut poser plusieurs avantages tel que le rendu fovéal
+        \cite{wiki_foveated_rendering}.
 \end{itemize}
 
 \bigskip
 La plupart des produits liés à l'eye-tracking sont distribués par des
 entreprises telles que Tobii \cite{tobii} et HTC Vice \cite{htc_vive_pro_eye}.
-Ces solutions peuvent être utilisées dans plusieurs domaines \cite{yt:tobii_vr}
+Ces solutions peuvent être utilisées dans plusieurs domaines \cite{yt_tobii_vr}
 : les capteurs pour écrans peuvent être utiles pour étudier le regard d'un
 individu sur une page web, par exemple, et ainsi déterminer les régions les
 plus attrayantes ou non. Les casques de réalité virtuelle avec capteurs
@@ -130,11 +135,11 @@ circonstances difficilement réalisables dans le monde réel.
 
 \begin{figure}[htpb]
   \centering
-  \subfloat{\includegraphics[width=5cm]{tobii.jpeg}}
+  \subfloat{\includegraphics[width=6cm]{tobii.jpeg}}
   \qquad
-  \subfloat{\includegraphics[width=5cm]{htcvive.png}}
-  \caption{Capteur Tobii \cite{img:tobii} pour écrans (à gauche) et casque HTC
-    Vive \cite{img:htcvive} pour la réalité virtuelle (à droite).}
+  \subfloat{\includegraphics[width=6cm]{htcvive.png}}
+  \caption{Capteur Tobii \cite{img_tobii} pour écrans (à gauche) et casque HTC
+    Vive \cite{img_htcvive} pour la réalité virtuelle (à droite).}
   \label{fig:materiel}
 \end{figure}
 
@@ -157,24 +162,19 @@ données sont une série de valeurs numériques (cf. Figure \ref{fig:donnees}),
 représentants les positions du regard dans un environnement, mais sont
 difficilement compréhensibles telles quelles. Pour cela, il serait beaucoup
 plus intéressant de transformer les données en des réprésentations imagées et
-graphiques de différents types. Il existe différentes mesures et termes
-utilisés pour analyser le regard \cite{imotions:metrics}, chacune organisant
-les données de façon à avoir une analyse compléte, étudiant tous les aspects du
-regard.
+possiblement des graphiques. Il existe différentes mesures et termes utilisés
+pour analyser le regard \cite{imotions_metrics}, chacune organisant les données
+de façon à avoir une analyse compléte, étudiant tous les aspects du regard.
 
 \begin{figure}[htpb]
-  \begin{verbatim}
+  \begin{lstlisting}
     <temps> : <positionX>, <positionY>
     0.00 : 50, 50
     0.25 : 43, 64
     0.50 : 38, 75
     0.75 : 41, 66
-    1.00 : 38, 59
-    1.25 : 35, 51
-    1.50 : 29, 44
-    1.75 : 24, 40
-    2.00 : 20, 33
-  \end{verbatim}
+    ...
+  \end{lstlisting}
   \caption{Exemple de données fournies par les logiciels de capteurs, avec une
     indication du temps et de la position du regard (en pourcentages) sur l'axe
     horizontal et vertical.}
@@ -213,11 +213,11 @@ simple de différencier les régions qui attirent le plus l'attention. C'est
 l'une des représentations les plus importantes pour comprendre la saillance des
 éléments dans un environnement.
 
-\begin{figure}[ht]
+\begin{figure}[htpb]
   \centering
   \includegraphics[width=0.75\textwidth,keepaspectratio=true]{heatmap.png}
   \caption{Exemple de heatmap sur une page de recherche sur Google
-    \cite{img:heatmap}.}
+    \cite{img_heatmap}.}
   \label{fig:heatmap}
 \end{figure}
 
@@ -236,7 +236,7 @@ données de façon plus explicite.
 
 Pour pouvoir analyser les données et créer ces réprésentations il faudrait soit
 utiliser des bibliothèques ou des applications déjà disponibles
-\cite{imotions:software}, soit créer les outils. Heureusement, il existe
+\cite{imotions_software}, soit créer les outils. Heureusement, il existe
 certains logiciels open-source, ou gratuits uniquement, permettant d'effectuer
 un minimum d'analyse de données. L'objectif est donc de déterminer quel
 logiciel est le plus intéressant à utiliser dans le cadre de ce travail,
@@ -293,7 +293,6 @@ pour réduire le bruit et effectuer une analyse plus correcte. Elle peut être
 utilisée avec le langage Python, pour effectuer, au l'inverse des
 réprésentations imagées, des graphiques qui affichent les données exactes.
 
-
 \bigskip
 \begin{table}[htpb]
   \begin{center}
@@ -316,15 +315,187 @@ réprésentations imagées, des graphiques qui affichent les données exactes.
   \end{center}
 \end{table}
 
-Il existe donc plusieurs applications et bibliothèques gratuites permettant
-d'effectuer une analyse sur les jeux de données créés par les capteurs. Il
-existe également des logiciels payants, mais ceux-ci sont hors de portée dans le
-cadre de ce travail. Après comparaison entre les logiciels (cf. Table
-\ref{tab:comparaison}), une bibliothèque en particulier se démarque. PyGaze est
-le candidat idéal ici, puisque elle permettrait d'être utilisée pour analyser
-les données librement et facilement, afin de créer des réprésentations visuelles
-du regard. Sinon, GazeParser pour servir pour effectuer des graphiques et
-représenter les données de façon plus chiffrée.
+Plusieurs applications et bibliothèques gratuites permettent d'effectuer une
+analyse sur les jeux de données créés par les capteurs. Il existe également des
+logiciels payants, mais ceux-ci sont hors de portée dans le cadre de ce
+travail. Après comparaison entre les logiciels (cf. Table \ref{tab:comparaison},
+une bibliothèque en particulier se démarque. PyGaze est le candidat idéal ici,
+puisque elle permettrait d'être utilisée pour analyser les données librement et
+facilement, afin de créer des réprésentations visuelles du regard. Sinon,
+GazeParser pour servir pour effectuer des graphiques.
+
+% ----------------------------------------------------------------------------
+% Outil d'analyse
+% ----------------------------------------------------------------------------
+
+\section{Outil d'analyse}
+
+Afin de développer l'outil d'analyse \cite{github_ter}, il faut d'abord
+comprendre comment la librairie PyGaze traite les données. Le format des
+données en entrée peut varier en fonction des études. Durant ce travail, des
+formats de données m'étaient donnés, l'un pour une étude avec un capteur sur
+écran 2D et le second pour une étude en réalité virtuelle. La première étude a
+été effectuée par une société tierce, tandis que la seconde a été conduite au
+sein du laboratoire iCube, par mes encadrants, grâce à l'environnement 
+d'eye-tracking en réalité virtuelle qu'ils avaient mis en place.
+
+\subsection{Implémentation}
+
+La première fonctionnalité de l'outil est de convertir les données en entrée,
+en des données compréhensibles et traitables par la suite. Puisque plusieurs
+formats de données peuvent être passés en entrée, il faut configurer pour
+chaque format comment traduire les données spécifiques à chaque étude, en un
+format de données compréhensible par l'outil. Les données passées en entrée
+sont essentielment un fichier csv et un ensemble d'images regroupés dans un
+dossier appelé img. Le fichier csv contient les positions de points de fixation
+au fur et à mesure d'une étude, la distance de l'individu par rapport à l'écran
+et le diamètre de chaque pupille, par exemple. Mais certaines de ces
+informations ne sont pas utilisée par l'outil. Ainsi, les fichiers csv des
+données sont transformés en des fichiers csv dont on connait la composition,
+sous un format commun pour faciliter l'implémentation. Pour manipuler les
+données d'entrée, il suffit de connaître le temps (en microsecondes), la
+position des points de fixation en X et Y (en pourcentages), la distance de
+l'individu face à l'écran (en mètres), et le diamètre de la pupille en chaque
+œil (en millimètres). Une étude d'oculométrie est faite sur une séquence
+d'image, donc il faut aussi faire correspondre les données aux images. Pour
+cela, on peut indiquer à quel temps étudier une image spécifique. On peut donc
+avoir un fichier csv contenant les données organisés sous le format de la Table
+\ref{tab:format-csv} composée de deux sous-tables. Les données sont alors
+prêtes à être analysées.
+
+\bigskip
+\begin{table}[htpb]
+  \begin{adjustwidth}{0.05\textwidth}{0cm}
+    \begin{tabular}{|c||c|}
+      \hline
+      Temps  & Image  \\
+      \hline
+      0.0    & image1 \\
+      7.3    & image2 \\
+      \vdots & \vdots \\
+      \hline
+    \end{tabular}
+    \newline
+    \begin{tabular}{|c||c|c|c|c|c|}
+      \hline
+      Temps  & Fixs/X & Fixs/Y & Distance & Pup/Gauche & Pup/Droite \\
+      \hline
+      0.0    & 43.2   & 57.8   & 0.5      & 2.8        & 2.8        \\
+      4.7    & 34.4   & 49.6   & 0.4      & 2.8        & 2.8        \\
+      8.1    & 30.7   & 52.1   & 0.4      & 2.8        & 2.8        \\
+      \vdots & \vdots & \vdots & \vdots   & \vdots     & \vdots     \\
+      \hline
+    \end{tabular}
+  \end{adjustwidth}
+  \caption{Format des données d'un fichier csv après filtrage: le fichier est composé d'une première table indiquant le temps de début de chaque image et d'une seconde table contenant toutes les données de fixation.}
+  \label{tab:format-csv}
+\end{table}
+
+Par la suite, il faut organiser ces données en des ensembles cohérents: une
+étude est composée de plusieurs images, que l'on peut appeler scènes. Les
+données de fixations n'affectent qu'une scène, donc un premier filtrage est
+effectué pour associer à chaque scène les données qui lui sont pertinentes,
+grâce à l'indicateur de temps. Après lecture du fichier csv rearrangé, on crée
+les différentes scènes, chacune contenant l'image d'étude et l'ensemble des
+points de fixation qui lui sont propres. Ces informations sont suffisantes pour
+créer des représentations imagées du suivi du regard. La librairie PyGaze met à
+disposition un outil pour créer des cartes de chaleur et des points de fixation
+superposées sur les images d'origines des scènes. Cela permet alors de bien
+distinguer les zones d'intérêt. L'outil lance alors le rendu en parallèle de
+ces cartes pour chaque scène. Les résultats sont enregistrés dans des dossiers
+organisés par étude.
+
+\bigskip
+L'outil effectue uniquement une réorganisation des données et ensuite le rendu
+des scènes. Il y a un filtrage tout de même des valeurs erronées, des points de
+fixation qui se trouvent en dehors d'une image, par exemple. Aucun traitement
+de données supplémentaire n'est effectué pour l'instant, pour regrouper des
+positions de fixation en des points de fixations. Aussi, puisqu'une étude peut
+être effectuée sur une page web, on peut récupérer la donnée de scroll ou
+défilement de la page. Cependant, pour l'une des études je n'ai pas réussi à
+proprement prendre en compte cette donnée, et donc les résultats d'analyse ne
+sont pas totalement corrects pour cette étude-ci. Les données peuvent être
+récupérées de plusieurs façons différentes, l'implémentation de l'outil doit
+tenir compte de cette flexibilité. Puisque cette étude en question a été menée
+par une société tierce, l'échange d'information était lent. C'est un aspect de
+ce travail qui demandait plus de temps que prévu, pour cette étude
+spécifiquement. Sinon, cette version de l'outil reste tout de même complete et
+fonctionne bien avec des pages statiques et des images.
+
+\subsection{Résultats}
+
+L'outil permet donc de générer des cartes de chaleur et de points de fixations.
+Dans le cadre de ce travail, j'ai adapté l'outil pour fonctionner avec les
+données fournies par la société tierce et celles de iCube également. L'outil est
+utilisé à la fin d'une capture, donc l'environnement de travail est en fait non
+pertinent, tant que les données sont complètes et traitables.
+
+\bigskip
+L'analyse de la première étude par l'outil retourne pour chaque scène une carte
+de chaleur (cf. Figure \ref{fig:tea-resultats-heatmap}) et la carte des points
+de fixations (cf. Figure \ref{fig:tea-resultats-raw}) d'une scène. On observe
+sur la carte des points de fixations que les regions de l'image d'origine qui
+possèdent une forte densité de points sont bien distinguées par la carte de
+chaleur. Cependant, les données de défilement de page sont ignorées sur ces
+rendus de carte, et donc les cartes ne sont pas totalement fiables: les zones
+d'intérêt sont bien placées sur l'axe horizontal mais pas forcément sur l'axe
+vertical.
+
+\bigskip
+Quant à la seconde étude, menée dans une environnement de réalité virtuel,
+l'outil effectue le rendu de chaque scène également. Ici, on observe une carte
+des points de fixation (cf. Figure \ref{fig:vr-resultats-raw}) plus remplie:
+les  points sont en fait uniquement les positions brutes du regard au fil du
+temps. Contrairement à l'étude précédente, aucun traitement des données n'a été
+effectué avant l'analyse. On distingue donc toute les positions du regard.
+Cependant, on observe plus clairement les zones attrayantes, encore plus avec
+la carte de chaleur (cf. Figure \ref{fig:vr-resultats-heatmap}). Pour cette
+étude, l'individu devait se focaliser sur le titre de l'affiche, la date,
+l'endroit et l'organisateur de l'événement. En étudiant ces cartes, on peut
+bien différencier les zones reflettant ces informations.
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=0.8\textwidth,keepaspectratio=true]{tea-heatmap-9.png}
+  \caption{Carte de chaleur générée à partir d'une étude effectuée avec un
+    capteur d'écran 2D.}
+  \label{fig:tea-resultats-heatmap}
+\end{figure}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=0.8\textwidth,keepaspectratio=true]{tea-raw-9.png}
+  \caption{Carte des points de fixation générée à partir d'une étude effectuée
+    avec un capteur d'écran 2D.}
+  \label{fig:tea-resultats-raw}
+\end{figure}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=0.8\textwidth,keepaspectratio=true]{vr-heatmap-0.png}
+  \caption{Carte de chaleur générée à partir d'une étude effectuée avec un
+    capteur de réalité virtuelle.}
+  \label{fig:vr-resultats-heatmap}
+\end{figure}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=0.8\textwidth,keepaspectratio=true]{vr-raw-0.png}
+  \caption{Carte des points de fixation à partir d'une étude effectuée avec un
+    capteur de réalité virtuelle.}
+  \label{fig:vr-resultats-raw}
+\end{figure}
+
+\bigskip
+Cet outil permet de créer des cartes qui facilitent l'analyse des données
+d'oculométrie. Dans cette version fonctionnelle, il peut prendre en entrée deux
+formats de données et les réorganiser pour effectuer le rendu des cartes
+d'analyse. Ces cartes sont cohérentes avec les données d'entrée, même si
+certaines fonctionnalités supplémentaires pourraient être ajoutées afin
+d'analyser proprement des pages avec scroll et un prétraitement des données
+pour n'afficher que les points de fixations. L'outil reste malgrès tout complet,
+documenté, structuré en différentes classes et parallélisé aussi.
+
 
 % ----------------------------------------------------------------------------
 % CONCLUSION
@@ -336,7 +507,7 @@ L'eye-tracking est une technologie qui présente un fort potentiel en recherche,
 mais les études dans le domaine de la réalité virtuelle restent peu nombreuses.
 L'objectif de ce travail étant de développer des outils d'analyse de données
 d'oculométrie, il faut choisir des bibliothèques capables de créer des
-représentations des données récupérées, pour des étude d'eye-tracking sur écran
+représentations des données récupérées, pour des études d'eye-tracking sur écran
 et en réalité virtuelle également. La bibliothèque la plus intéressante à
 utiliser est PyGaze : elle permet de génerer plusieurs cartes d'analyse et
 pourrait être une très utile pour développer des outils d'analyse en réalité

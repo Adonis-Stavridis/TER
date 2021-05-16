@@ -69,7 +69,7 @@ def teaTransformCSV(inputFile, outputFile) -> None:
     next(csvReader)
 
   outFile.write(
-      "Temps, Fixations/X, Fixations/Y, Distance, Pupille/Gauche, Pupille\Droite\n")
+      "Temps, Fixations/X, Fixations/Y, Distance, Pupille/Gauche, Pupille/Droite\n")
 
   for row in csvReader:
     temps = row[Tea.DATA_TIME]
@@ -114,7 +114,7 @@ def vrTransformCSV(inputFile, dataFile, outputFile) -> None:
   csvReader = csv.reader(inFile, delimiter=',')
 
   outFile.write(
-      "Temps, Fixations/X, Fixations/Y, Distance, Pupille/Gauche, Pupille\Droite\n")
+      "Temps, Fixations/X, Fixations/Y, Distance, Pupille/Gauche, Pupille/Droite\n")
 
   for row in csvReader:
     temps = row[Vr.DATA_TIME]
@@ -140,7 +140,7 @@ def handleCSV(catName, inputFile, outputFile) -> None:
       inputFile (str): path to input csv file
       outputFile (str): path to output folder
   """
-  
+
   outFolder = os.path.dirname(outputFile)
   tempFile = f"{outFolder}/temp.csv"
   simplifyCSV(catName, inputFile, tempFile)
