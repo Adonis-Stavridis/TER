@@ -55,26 +55,25 @@ situations. L'eye-tracking s'avère donc être très pratique pour étudier la
 saillance des éléments présents dans les environnements virtuels. Cependant,
 certaines études ont besoin d'un environnement plus réaliste. La réalité
 virtuelle ajoute une nouvelle couche d'immersion, permettant à un individu de
-se sentir et agir de façon plus réaliste. La réalité virtuelle permettrait
+se sentir et agir de façon plus naturelle. La réalité virtuelle permettrait
 alors de livrer des résultats beaucoup plus fiables pour certains domaines, et
 ainsi pousser à l'avancement des recherches sur le comportement humain.
 
 \bigskip
 L'objectif de ce travail consiste à développer un outil d'analyse des données
-d'oculométrie afin de comparer le regard face à un écran et dans un
-environnement de réalité virtuelle. La visualisation et l'analyse des données
-oculaires, peut être effectuée en temps réel ou par l'intermédiaire d'une
-application. En vue de ce travail de recherche, un premier environnement (cf.
-Figure \ref{fig:environnement}) a déjà été mis au point pour recueillir des
-données d'eye-tracking sur un écran d'ordinateur, mais aussi dans un
-environnement de réalité virtuelle. Un individu se place devant un écran et
-observe différents supports, quant à la réalité virtuelle, l'individu porte un
-casque et se retrouve dans ce même environnement face à un écran, cette fois-ci,
-dans un monde virtuel. A partir des données recueillies au cours de sessions
-expérimentales, il faudrait générer des supports graphiques qui rassemblent
-toutes les informations nécessaires pour une analyse compléte de l'étude. Il
-existe certaines bibliothèques et logiciels qui permettent de traiter ces
-données, mais toutes ne présentent pas les mêmes fonctionnalités.
+d'oculométrie afin de comparer le regard face à un écran dans le monde réel et
+dans un environnement de réalité virtuelle. En vue de ce travail de recherche,
+un premier environnement (cf. Figure \ref{fig:environnement}) a déjà été mis au
+point pour recueillir des données d'eye-tracking sur un écran d'ordinateur,
+dans un environnement de réalité virtuelle. Un individu porte un casque de
+réalité virtuelle et se plonge dans un monde virtuel dans lequel il est placé
+devant un écran et observe différentes images. A partir des données recueillies
+au cours de sessions expérimentales, il faudrait générer des supports
+graphiques qui rassemblent toutes les informations nécessaires pour une analyse
+compléte de l'étude. Il existe certaines bibliothèques et logiciels qui
+permettent de traiter ces données, mais toutes ne présentent pas les mêmes
+fonctionnalités. Elles pourraient aider à compléter l'outil et obtenir des
+résultats cohérents rapidement.
 
 \begin{figure}[htpb]
   \centering
@@ -89,7 +88,7 @@ Il convient dans un premier temps de sélectionner l'outil qui possède les
 meilleurs atouts pour réaliser ces supports. Pour cela, il faut d'abord
 comprendre comment sont récupérées les données, comment elle sont structurées
 et puis identifier les types de support pertinents pour une analyse compléte,
-afin de déterminer la bibliothèque la plus intéressante à utiliser pour
+afin de déterminer la bibliothèque la plus intéressante à utiliser, pour
 accomplir ce travail. Enfin, il faut programmer cet outil et vérifier que les
 résultats obtenus sont cohérents avec les données d'entrée.
 
@@ -109,11 +108,11 @@ que ce soit un écran ou un monde virtuel.
 \bigskip
 Les deux types de capteurs utilisés au sein de ce travail sont les suivants :
 \begin{itemize}
-  \item Des capteurs pour écrans : ce sont les capteurs les plus basiques. Ils
+  \item des capteurs pour écrans : ce sont les capteurs les plus basiques. Ils
         sont placés au-dessus ou en-dessous d'un écran et orientés vers les yeux
         d'un individu. Ils permettent de suivre le regard sur un écran, donc
         dans un environnement à deux dimensions.
-  \item Des capteurs intégrés à des casques de réalité virtuelle : ce sont des
+  \item des capteurs intégrés à des casques de réalité virtuelle : ce sont des
         capteurs similaires aux précédents, mais qui ont été modifiés pour
         s'intégrer dans des casques de réalité virtuelle et observer les yeux à
         une distance beaucoup plus courte. Ces capteurs permettent de suivre le
@@ -232,7 +231,7 @@ conclusions, en prenant en compte tous les aspects de l'étude du regard.
 
 \section{Logiciels}
 
-Pour pouvoir analyser les données et créer ces réprésentations il faudrait soit
+Pour pouvoir analyser les données et créer ces réprésentations, il faudrait soit
 utiliser des bibliothèques ou des applications déjà disponibles
 \cite{imotions_software}, soit créer les outils. Heureusement, il existe
 certains logiciels open-source, ou gratuits uniquement, permettant d'effectuer
@@ -251,15 +250,14 @@ c'est un logiciel qui fonctionne indépendamment, et non pas une bibliothèque :
 ses outils ne sont pas accessibles en dehors de l'application. Aussi, le
 logiciel fonctionne uniquement avec des webcams. Gazepointer permet d'analyser
 des données d'oculométrie, mais son implémentation n'est pas optimale dans le
-cadre de ce travail, avec les capteurs disponibles, et ne permet pas du tout
-l'oculométrie en réalité virtuelle.
+cadre de ce travail, avec les capteurs disponibles.
 
 \subsection{Ogama}
 
 Ogama \cite{ogama} est une application open-source qui permet d'enregistrer et
 d'analyser des données d'oculométrie et de mouvements de souris. Le logiciel
 permet essentiellement de créer des cartes de fixations et des zones d'intérêt,
-et du calcul de saillance, pour déterminer quelles régions sont les plus
+avec du calcul de saillance pour déterminer quelles régions sont les plus
 attrayantes. Il accepte tout type de données enregistrées en format ASCII, et,
 en plus, le logiciel est certifié de fonctionner avec plusieurs logiciels
 d'oculométrie et capteurs sur le marché tels que Tobii. Ogama est donc
@@ -277,7 +275,7 @@ cartes de fixations et de chaleur. Le code de PyGaze est open-source et il est
 donc possible de se baser sur cette bibliothèque pour développer d'autres
 outils. De plus, elle est certifié de fonctionner avec les données issues de
 capteurs Tobii. PyGaze est donc assez flexible et peut être utilisée ou
-modifiée si nécessaire, pour obtenir des résultats d'analyse en fonction de nos
+modifiée si nécessaire, pour obtenir des résultats d'analyse en fonction des
 besoins.
 
 \subsection{GazeParser}
@@ -287,7 +285,8 @@ regard qui permet essentielment de récupérer les données et les visualiser so
 forme de graphiques. Ceci peut être pratique pour avoir une approche plus brute
 des données. GazeParser permet aussi d'appliquer des filtres sur les données
 pour réduire le bruit et effectuer une analyse plus correcte. Même si ce format
-d'analyse peut être intéressant, il ne rentre pas dans le cadre de ce travail.
+d'analyse en graphiques peut être intéressant, il ne rentre pas dans le cadre
+de ce travail.
 
 \bigskip
 \begin{table}[htpb]
@@ -305,7 +304,8 @@ d'analyse peut être intéressant, il ne rentre pas dans le cadre de ce travail.
       \hline
     \end{tabular}
     \caption{Comparaison des logiciels en fonction de leur flexibilité, leur
-      capacité de géneration de d'analyse des données et leur documentation.}
+      capacité de géneration de d'analyse des données et leur documentation,
+      donc facilité d'utilisation.}
     \label{tab:comparaison}
   \end{center}
 \end{table}
@@ -313,10 +313,11 @@ d'analyse peut être intéressant, il ne rentre pas dans le cadre de ce travail.
 Plusieurs applications et bibliothèques gratuites permettent d'effectuer une
 analyse sur les jeux de données créés par les capteurs. Il existe également des
 logiciels payants, mais ceux-ci sont hors de portée au sein de ce
-travail. Après comparaison entre les logiciels (cf. Table \ref{tab:comparaison},
-la bibliothèque PyGaze est idéale pour ce travail, puisque elle permettrait
-d'être utilisée pour analyser les données librement et facilement, afin de
-créer des réprésentations visuelles du regard au fil du temps.
+travail. Après comparaison entre les logiciels (cf. Table
+\ref{tab:comparaison}), la bibliothèque PyGaze est idéale pour ce travail,
+puisque elle permettrait d'être utilisée pour analyser les données librement et
+facilement, afin de créer des réprésentations visuelles du regard au fil du
+temps.
 
 % ----------------------------------------------------------------------------
 % Outil d'analyse
@@ -328,37 +329,36 @@ Afin de développer l'outil d'analyse \cite{github_ter}, il faut d'abord
 comprendre comment la librairie PyGaze traite les données. Le format des
 données en entrée peut varier en fonction des études. Durant ce travail, des
 formats de données m'étaient fournis, l'un pour une étude avec un capteur sur
-écran 2D et le second pour une étude en réalité virtuelle. La première étude a
-été effectuée par une société tierce, tandis que la seconde a été conduite au
-sein du laboratoire iCube, par mes encadrants, grâce à l'environnement
+écran et le second pour une étude en réalité virtuelle. La première étude a été
+effectuée par une société tierce, tandis que la seconde a été conduite au sein
+du laboratoire iCube, par mes encadrants, grâce à l'environnement
 d'eye-tracking en réalité virtuelle qu'ils avaient mis en place. Pour ces
 études-ci, dans les deux cas, on étudie le regard sur un écran, l'un dans la vie
-réelle tandis que l'autre dans un monde virtuel. Les données à traiter sont
-donc deux dimensionnelle et l'environnement importe peu ici.
+réelle tandis que l'autre dans un monde virtuel.
 
 \subsection{Implémentation}
 
 La première fonctionnalité de l'outil est de convertir les données en entrée,
-en des données compréhensibles et traitables par la suite. Puisque plusieurs
-formats de données peuvent être passés en entrée, il faut configurer pour
-chaque format comment traduire les données spécifiques à chaque étude, en un
-format de données compréhensible par l'outil. Les données passées en entrée
-sont essentielment un fichier csv et un ensemble d'images regroupés dans un
-dossier spécifique. Le fichier csv contient les positions de points de fixation
-au fur et à mesure d'une étude, la distance de l'individu par rapport à l'écran
-et le diamètre de chaque pupille, par exemple. Mais certaines de ces
-informations ne sont pas utilisée par l'outil. Ainsi, les données originales
-sont transformées en des fichiers csv dont on connait la composition,
-sous un format commun pour faciliter l'implémentation. Pour manipuler les
-données d'entrée, il suffit de connaître le temps (en microsecondes), la
-position des points de fixation en X et Y (en pourcentages), la distance de
-l'individu face à l'écran (en mètres), et le diamètre de la pupille en chaque
-œil (en millimètres). Une étude d'oculométrie est faite sur une séquence
-d'image, donc il faut aussi faire correspondre les données aux images. Pour
-cela, on peut indiquer à quel temps étudier une image spécifique. On peut donc
-avoir un fichier csv contenant les données organisés sous le format de la Table
-\ref{tab:format-csv} composée de deux sous-tables. Lorsque cette étape est
-achevée, les données peuvent être analysées.
+en un format compréhensible et traitable par la suite. Puisque plusieurs
+formats de données peuvent être passés en entrée, il faut configurer  l'outil
+pour traduire les données spécifiques à chaque étude, en un format de données
+compréhensible par l'outil. Les données passées en entrée sont essentielment un
+fichier csv et un ensemble d'images regroupés dans un dossier spécifique. Le
+fichier csv contient les positions de points de fixation au fur et à mesure
+d'une étude, la distance de l'individu par rapport à l'écran et le diamètre de
+chaque pupille, par exemple. Mais certaines de ces informations ne sont pas
+utilisées par l'outil. Ainsi, les données originales sont transformées en des
+fichiers csv dont on connait la composition, sous un format commun pour
+faciliter l'implémentation. Pour manipuler les données d'entrée, il suffit de
+connaître le temps (en microsecondes), la position des points de fixation en X
+et Y (en pourcentages), la distance de l'individu face à l'écran (en mètres),
+et le diamètre de la pupille en chaque œil (en millimètres). Une étude
+d'oculométrie est faite sur une séquence d'image, donc il faut aussi faire
+correspondre les données aux images. Pour cela, on peut indiquer à quel temps
+étudier une image spécifique. On peut donc avoir un fichier csv contenant les
+données organisés sous le format de la Table \ref{tab:format-csv} composée de
+deux sous-tables. Lorsque cette étape est achevée, les données peuvent être
+analysées.
 
 \bigskip
 \begin{table}[htpb]
@@ -384,9 +384,9 @@ achevée, les données peuvent être analysées.
       \hline
     \end{tabular}
   \end{adjustwidth}
-  \caption{Format des données d'un fichier csv après filtrage: le fichier est
-    composé d'une première table indiquant le temps de début de chaque image et
-    d'une seconde table contenant toutes les données de fixation.}
+  \caption{Format des données d'un fichier csv après transformation: le fichier
+    est composé d'une première table indiquant le temps de début de chaque
+    image et d'une seconde table contenant toutes les données de fixation.}
   \label{tab:format-csv}
 \end{table}
 
@@ -398,26 +398,25 @@ grâce à l'indicateur de temps. Après lecture du fichier csv rearrangé, on cr
 les différentes scènes, chacune contenant l'image d'étude et l'ensemble des
 points de fixation qui lui sont propres. Ces informations sont suffisantes pour
 créer des représentations imagées du suivi du regard. Grâce à la bibliothèque
-PyGaze l'outil lance alors le rendu en parallèle de cartes de chaleur et des
+PyGaze, l'outil lance alors le rendu en parallèle de cartes de chaleur et des
 points de fixation pour chaque scène.
 
 \bigskip
-L'outil a tout de mêmes des limites: il n'effectue uniquement une
-réorganisation des données et ensuite le rendu des scènes. Il y a malgrès tout
-un filtrage  des valeurs erronées, des points de fixation qui se trouvent en
-dehors d'une image, par exemple. Mais aucun traitement de données
-supplémentaire n'est effectué pour l'instant, pour regrouper des points de
-fixation proche en temps et espace. Aussi, puisqu'une étude peut
-être effectuée sur une page web, on peut récupérer la donnée de scroll ou
-défilement de la page. Cependant, pour la première étude je n'ai pas réussi à
-proprement prendre en compte cette donnée, et donc les résultats d'analyse ne
-sont pas totalement corrects, pour cette étude-ci. Les données peuvent être
-récupérées de plusieurs façons différentes, donc l'implémentation de l'outil
-doit tenir compte de cette flexibilité. Puisque cette étude en question a été
-menée par une société tierce, l'échange d'information était lent aussi. C'est
-un aspect de ce travail qui demandait plus de temps que prévu. Sinon, cette
-version de l'outil reste tout de même complete et fonctionne bien avec des
-pages statiques et des images.
+L'outil a tout de mêmes des limites: il effectue uniquement une réorganisation 
+des données et ensuite le rendu des scènes. Il y a malgrès tout un filtrage  
+des valeurs erronées, des points de fixation qui se trouvent en dehors d'une 
+image, par exemple. Mais aucun traitement de données supplémentaire n'est 
+effectué pour l'instant, pour regrouper des points de fixation proche en temps 
+et espace. Aussi, puisqu'une étude peut être effectuée sur une page web, on 
+peut récupérer la donnée de scroll ou défilement de la page. Cependant, pour la 
+première étude je n'ai pas réussi à proprement prendre en compte cette donnée, 
+et donc les résultats d'analyse ne sont pas totalement corrects, pour cette 
+étude-ci. Les données peuvent être récupérées de plusieurs façons différentes, 
+donc l'implémentation de l'outil doit tenir compte de cette flexibilité. 
+Puisque cette étude en question a été menée par une société tierce, l'échange 
+d'information était lent aussi. C'est un aspect de ce travail qui demandait 
+plus de temps que prévu. Sinon, cette version de l'outil reste tout de même 
+complete et fonctionne bien avec des pages statiques et des images.
 
 \subsection{Résultats}
 
@@ -509,24 +508,24 @@ représentations des données récupérées, pour des données issues d'études
 d'eye-tracking sur écran et en réalité virtuelle également. La bibliothèque la
 plus intéressante à utiliser est PyGaze : elle permet de génerer plusieurs
 cartes d'analyse et peut être retravaillée pour effectuer d'autres types
-d'analyses également si nécessaire.
+d'analyses, si nécessaire.
 
 \bigskip
 L'outil d'analyse implémenté se base sur PyGaze pour effectuer des cartes de
 chaleur et des points de fixations des scènes d'une étude. Ces représentations
 graphiques permettent de bien distinguer les régions attrayantes ou non d'une
 image. L'outil est fonctionnel, mais manque toutefois de certaines
-fonctionnalités, même si celles-ci dépendent fortement au format de données 
+fonctionnalités, même si celles-ci dépendent fortement du format de données
 fournies par l'étude.
 
 \bigskip
 Afin d'effectuer une étude complète du regard dans un environnement réel et
-virtuel, on pourrait utiliser cet outil, même si pourrait des raisons de manque
+virtuel, on pourrait utiliser cet outil, même si pour des raisons de manque
 de temps et de matériel, il n'était pas possible durant ce travail. Aussi,
 l'outil fonctionne uniquement en deux dimensions, puisqu'il ne récupère que des
-images en entrée. Il serait alors intéressant de créer une amélioration de cet
+images en entrée. Il serait alors intéressant de créer une version de cet
 outil qui fonctionne dans un monde à trois dimmensions. Ainsi, on pourrait créer
-des scènes 3D et y placer des indicateurs visuels du tracé du regard, ou y 
+des scènes 3D et y placer des indicateurs visuels du tracé du regard, ou y
 superposer une texture de carte de chaleur, pour suivre le regard dans un monde
 virtuel.
 
