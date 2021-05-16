@@ -1,27 +1,9 @@
-# TER
+# Outil d'analyse de données d'eye-tracking
 
-## Questions à poser
+Pour compiler ce projet lancer avec la commande:
 
-- Données
-  - Position des fixations = pourcentages?
-  - Ca veut dire quoi -100% (dehors?)
-  - Les données ne paraissent pas fluides
-  - Comment savoir sur quelle image je travaille
-  - Il faut bien lire le csv seulement?
-  - Doc sur les données?
-  - Sujet 14 ne fonctionne pas chez moi
+    python3 src/main.py <inputfolder> <outputfolder>
 
-peut etre -100 et 0 clignements des yeux
+Par exemple:
 
-a droite tableau different pour les images
-
-## A faire
-
-- Trouver format pour toutes les donnees
-  - Temps
-  - Pupille gauche
-  - pupille droite
-  - Fixations x
-  - fixations y
-  - distance
-- Envoyer mail avec les questions pour donnees
+    python3 src/main.py data/vr/Sujet 1 out
