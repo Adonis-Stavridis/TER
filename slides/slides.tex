@@ -6,8 +6,14 @@
 \usepackage[french]{babel}
 \usepackage{url}
 \usepackage{listings}
+\usepackage{graphicx}
+\usepackage{pifont}
+\usepackage{changepage}
 
 \graphicspath{ {../doc/img/} }
+
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
 
 \usetheme{Madrid}
 \usecolortheme{default}
@@ -25,9 +31,7 @@
 %-------------------------------------------------------------------------------
 \frame{\titlepage}
 %-------------------------------------------------------------------------------
-\begin{frame}
-  \frametitle{Introduction}
-
+\begin{frame}{Introduction}
   \begin{block}{Eye-tracking / Oculométrie}
     technologie qui permet de reconnaître la position du regard d’un individu
     dans un environnement réel ou virtuel
@@ -41,15 +45,12 @@
 %-------------------------------------------------------------------------------
 \begin{frame}
   \frametitle{Sommaire}
-
   \tableofcontents
 \end{frame}
 %-------------------------------------------------------------------------------
 \section{Capteurs}
 %-------------------------------------------------------------------------------
-\begin{frame}
-  \frametitle{Capteurs}
-
+\begin{frame}{Capteurs}
   \begin{columns}
     \column{0.5\textwidth}
     \begin{figure}
@@ -66,8 +67,7 @@
 %-------------------------------------------------------------------------------
 \section{Analyse des données}
 %-------------------------------------------------------------------------------
-\begin{frame}[fragile]
-  \frametitle{Analyse des données}
+\begin{frame}[fragile]{Analyse des données}
   \begin{lstlisting}
     <temps> : <positionX>, <positionY>
     0.00 : 50, 50
@@ -78,88 +78,116 @@
   \end{lstlisting}
 \end{frame}
 %-------------------------------------------------------------------------------
-\begin{frame}
-  \frametitle{Analyse des données}
+\begin{frame}{Analyse des données}
   \begin{figure}
-    \includegraphics[height=0.5\textwidth]{raw.png}
-    \caption{Positions des fixations}
+    \includegraphics<1>[height=0.5\textwidth]{raw.png}
+    \includegraphics<2>[height=0.5\textwidth]{sequence.png}
+    \includegraphics<3>[height=0.5\textwidth]{heatmap.png}
+    \caption{
+      \only<1>{Positions des fixations}
+      \only<2>{Séquence de fixations}
+      \only<3>{Carte de chaleur}
+    }
   \end{figure}
 \end{frame}
 %-------------------------------------------------------------------------------
-\begin{frame}
-  \frametitle{Analyse des données}
-  \begin{figure}
-    \includegraphics[height=0.5\textwidth]{sequence.png}
-    \caption{Séquence de fixations}
-  \end{figure}
-\end{frame}
+\section{Logiciels}
 %-------------------------------------------------------------------------------
-\begin{frame}
-  \frametitle{Analyse des données}
-  \begin{figure}
-    \includegraphics[height=0.5\textwidth]{heatmap.png}
-    \caption{Carte de chaleur}
-  \end{figure}
+\begin{frame}{Logiciels}
+  \begin{table}[htpb]
+    \begin{center}
+      \begin{tabular}{|c||c|c|c|}
+        \hline
+        Logiciels      & Flexibilité   & Analyse       & Documentation \\
+        \hline
+        GazePointer    & \xmark        & \cmark        & \cmark        \\
+        Ogama          & \xmark        & \cmark \cmark & \cmark        \\
+        \alert{PyGaze} & \cmark \cmark & \cmark \cmark & \cmark \cmark \\
+        GazeParser     & \cmark        & \cmark \cmark & \cmark        \\
+        \hline
+      \end{tabular}
+      \caption{Comparaison des logiciels}
+    \end{center}
+  \end{table}
 \end{frame}
 %-------------------------------------------------------------------------------
 \section{Implémentation}
 %-------------------------------------------------------------------------------
+\begin{frame}{Implémentation}
+  \begin{itemize}
+    \item Plusieurs formats de données
+    \item Données volumineuses
+  \end{itemize}
+
+  \begin{table}[htpb]
+    \begin{adjustwidth}{0.05\textwidth}{0cm}
+      \begin{tabular}{|c||c|}
+        \hline
+        Temps  & Image  \\
+        \hline
+        0.0    & image1 \\
+        7.3    & image2 \\
+        \vdots & \vdots \\
+        \hline
+      \end{tabular}
+      \newline
+      \begin{tabular}{|c||c|c|c|c|c|}
+        \hline
+        Temps  & Fixs/X & Fixs/Y & Distance & Pup/Gauche & Pup/Droite \\
+        \hline
+        0.0    & 43.2   & 57.8   & 0.5      & 2.8        & 2.8        \\
+        4.7    & 34.4   & 49.6   & 0.4      & 2.8        & 2.8        \\
+        8.1    & 30.7   & 52.1   & 0.4      & 2.8        & 2.8        \\
+        \vdots & \vdots & \vdots & \vdots   & \vdots     & \vdots     \\
+        \hline
+      \end{tabular}
+    \end{adjustwidth}
+    \caption{Format des données d'un fichier csv template}
+  \end{table}
+\end{frame}
+%-------------------------------------------------------------------------------
 \section{Résultats}
 %-------------------------------------------------------------------------------
-%Example of the \pause command
-\begin{frame}
-  In this slide \pause
-
-  the text will be partially visible \pause
-
-  And finally everything will be there
+\begin{frame}{Résultats}
+  \begin{figure}
+    \includegraphics<1>[height=0.5\textwidth]{tea-raw-9.png}
+    \includegraphics<2>[height=0.5\textwidth]{tea-heatmap-9.png}
+    \caption{
+      \only<1>{Points de fixations}
+      \only<2>{Carte de chaleur}
+    }
+  \end{figure}
 \end{frame}
 %-------------------------------------------------------------------------------
-%Highlighting text
-\begin{frame}
-  \frametitle{Sample frame title}
-
-  In this slide, some important text will be
-  \alert{highlighted} because it's important.
-  Please, don't abuse it.
-
-  \begin{block}{Remark}
-    Sample text
-  \end{block}
-
-  \begin{alertblock}{Important theorem}
-    Sample text in red box
-  \end{alertblock}
-
-  \begin{examples}
-    Sample text in green box. The title of the block is ``Examples".
-  \end{examples}
+\begin{frame}{Résultats}
+  \begin{figure}
+    \includegraphics<1>[height=0.5\textwidth]{vr-raw-0.png}
+    \includegraphics<2>[height=0.5\textwidth]{vr-heatmap-0.png}
+    \caption{
+      \only<1>{Points de fixations}
+      \only<2>{Carte de chaleur}
+    }
+  \end{figure}
 \end{frame}
 %-------------------------------------------------------------------------------
+\begin{frame}{Conclusion}
+  Travail réalisé
+  \begin{itemize}
+    \item Traitement de deux formats de données spécifiques
+    \item Création de cartes de points de fixation et de chaleur
+  \end{itemize}
 
+  Limites
+  \begin{itemize}
+    \item Fonctionnalités
+  \end{itemize}
 
-%-------------------------------------------------------------------------------
-%Two columns
-\begin{frame}
-  \frametitle{Two-column slide}
-
-  \begin{columns}
-
-    \column{0.5\textwidth}
-    This is a text in first column.
-    $$E=mc^2$$
-    \begin{itemize}
-      \item First item
-      \item Second item
-    \end{itemize}
-
-    \column{0.5\textwidth}
-    This text will be in the second column
-    and on a second tought this is a nice looking
-    layout in some cases.
-  \end{columns}
+  Pour aller plus loin
+  \begin{itemize}
+    \item Plus des fonctionnalités
+    \item Application à la 3D pour la réalité virtuelle
+  \end{itemize}
 \end{frame}
 %-------------------------------------------------------------------------------
-
 
 \end{document}
