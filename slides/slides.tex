@@ -9,32 +9,39 @@
 \usepackage{graphicx}
 \usepackage{pifont}
 \usepackage{changepage}
+\usepackage{xcolor}
 
 \graphicspath{ {../doc/img/} }
 
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\xmark}{\ding{55}}
 
+\definecolor{tomato}{rgb}{1.0, 0.39, 0.28}
+\definecolor{gold}{rgb}{1.0, 0.84, 0.0}
+\definecolor{mediumseagreen}{rgb}{0.24, 0.7, 0.44}
+
 \usetheme{Madrid}
 \usecolortheme{default}
 
 \title[Analyse de données d'eye-tracking]{Analyse de données d'eye-tracking}
-\subtitle{Présentation du TER}
+\subtitle{Travail d'Etude et de Recherche}
 \author[STAVRIDIS Adonis]{STAVRIDIS Adonis}
 \institute[Unistra, iCube]{
-  Université de Strasbourg \and iCube
+  Université de Strasbourg \and iCube \and 
+  Antonio Capobianco, Flavien Lécuyer
 }
-\date[TER]{26 Mai 2021}
+\date[TER]{25 Mai 2021}
 
 \begin{document}
+
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
 
 %-------------------------------------------------------------------------------
 \frame{\titlepage}
 %-------------------------------------------------------------------------------
 \begin{frame}{Introduction}
   \begin{block}{Eye-tracking / Oculométrie}
-    technologie qui permet de reconnaître la position du regard d’un individu
-    dans un environnement réel ou virtuel
+    processus d'enregistrement du regard
   \end{block}
   \pause
   \begin{figure}
@@ -81,12 +88,10 @@
 \begin{frame}{Analyse des données}
   \begin{figure}
     \includegraphics<1>[height=0.5\textwidth]{raw.png}
-    \includegraphics<2>[height=0.5\textwidth]{sequence.png}
-    \includegraphics<3>[height=0.5\textwidth]{heatmap.png}
+    \includegraphics<2>[height=0.5\textwidth]{heatmap.png}
     \caption{
       \only<1>{Positions des fixations}
-      \only<2>{Séquence de fixations}
-      \only<3>{Carte de chaleur}
+      \only<2>{Carte de chaleur}
     }
   \end{figure}
 \end{frame}
@@ -98,12 +103,12 @@
     \begin{center}
       \begin{tabular}{|c||c|c|c|}
         \hline
-        Logiciels      & Flexibilité   & Analyse       & Documentation \\
+        Logiciels       & Flexibilité                               & Analyse                                   & Documentation                             \\
         \hline
-        GazePointer    & \xmark        & \cmark        & \cmark        \\
-        Ogama          & \xmark        & \cmark \cmark & \cmark        \\
-        \alert{PyGaze} & \cmark \cmark & \cmark \cmark & \cmark \cmark \\
-        GazeParser     & \cmark        & \cmark \cmark & \cmark        \\
+        GazePointer     & \textcolor{red}{\xmark}                   & \textcolor{orange}{\cmark}                & \textcolor{orange}{\cmark}                \\
+        Ogama           & \textcolor{red}{\xmark}                   & \textcolor{mediumseagreen}{\cmark \cmark} & \textcolor{orange}{\cmark}                \\
+        \textbf{PyGaze} & \textcolor{mediumseagreen}{\cmark \cmark} & \textcolor{mediumseagreen}{\cmark \cmark} & \textcolor{mediumseagreen}{\cmark \cmark} \\
+        GazeParser      & \textcolor{orange}{\cmark}                & \textcolor{mediumseagreen}{\cmark \cmark} & \textcolor{orange}{\cmark}                \\
         \hline
       \end{tabular}
       \caption{Comparaison des logiciels}
@@ -142,7 +147,9 @@
         \hline
       \end{tabular}
     \end{adjustwidth}
-    \caption{Format des données d'un fichier csv template}
+    \caption{\centering Format des données d'un fichier csv template
+      (temps en microsecondes, fixations en pourcentage, distance en mètre,
+      diamètre de la pupille en millimètre)}
   \end{table}
 \end{frame}
 %-------------------------------------------------------------------------------
