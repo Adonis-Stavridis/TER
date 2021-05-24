@@ -10,7 +10,10 @@
 \usepackage{pifont}
 \usepackage{changepage}
 \usepackage{xcolor}
+\usepackage[style=verbose,autocite=footnote]{biblatex}
+\usepackage{csquotes}
 
+\addbibresource{slides.bib}
 \graphicspath{ {../doc/img/} }
 
 \newcommand{\cmark}{\ding{51}}
@@ -26,15 +29,17 @@
 \title[Analyse de données d'eye-tracking]{Analyse de données d'eye-tracking}
 \subtitle{Travail d'Etude et de Recherche}
 \author[STAVRIDIS Adonis]{STAVRIDIS Adonis}
-\institute[Unistra, iCube]{
-  Université de Strasbourg \and iCube \and 
-  Antonio Capobianco, Flavien Lécuyer
+\institute[Unistra]{
+  Université de Strasbourg \and 
+  Antonio Capobianco \& Flavien Lécuyer
 }
 \date[TER]{25 Mai 2021}
 
 \begin{document}
 
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamertemplate{navigation symbols}{}
+\setbeamerfont{footnote}{size=\tiny}
 
 %-------------------------------------------------------------------------------
 \frame{\titlepage}
@@ -43,10 +48,9 @@
   \begin{block}{Eye-tracking / Oculométrie}
     processus d'enregistrement du regard
   \end{block}
-  \pause
   \begin{figure}
     \includegraphics[height=0.35\textwidth]{environnement.png}
-    \caption{Environnement de travail virtuel}
+    \caption{Environnement de travail virtuel \footfullcite{img_environnement}}
   \end{figure}
 \end{frame}
 %-------------------------------------------------------------------------------
@@ -62,14 +66,18 @@
     \column{0.5\textwidth}
     \begin{figure}
       \includegraphics[height=0.35\textwidth]{tobii.jpeg}
-      \caption{Capteur d'écran Tobii}
+      \caption{Capteur d'écran Tobii \footnotemark}
     \end{figure}
     \column{0.5\textwidth}
     \begin{figure}
       \includegraphics[height=0.35\textwidth]{htcvive.png}
-      \caption{Casque de réalité virtuelle avec capteurs intégrés}
+      \caption{Casque de RV avec capteurs intégrés \footnotemark}
     \end{figure}
   \end{columns}
+  \addtocounter{footnote}{-1}
+  \footcitetext{img_tobii}
+  \stepcounter{footnote}
+  \footcitetext{img_htcvive}
 \end{frame}
 %-------------------------------------------------------------------------------
 \section{Analyse des données}
@@ -90,8 +98,9 @@
     \includegraphics<1>[height=0.5\textwidth]{raw.png}
     \includegraphics<2>[height=0.5\textwidth]{heatmap.png}
     \caption{
-      \only<1>{Positions des fixations}
-      \only<2>{Carte de chaleur}
+      \only<1>{Positions des fixations \footfullcite{pygaze}}
+      \only<2>{Carte de chaleur
+        \stepcounter{footnote}\footfullcite{img_heatmap}}
     }
   \end{figure}
 \end{frame}

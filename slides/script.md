@@ -90,5 +90,3 @@ regard, mais dans le cadre de ce travail je me suis contenté de se concentrer
 sur ces deux spécialement.
 
 ## Slide 9
-
-
