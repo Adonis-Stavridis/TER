@@ -10,8 +10,8 @@ remercier pour leur aide tout au long de ce travail.
 ## Slide 2
 
 Mon sujet de TER porte sur l'analyse des données d'eye-tracking. Donc qu'est-ce
-que l'eye-tracking? L'oculométrie, en français, est le processus, un ensemble de
-techniques, qui permettent de suivre le regard d'un individu. Ce peut être
+que l'eye-tracking? L'oculométrie, en français, est le processus ou un ensemble
+de techniques qui permettent de suivre le regard d'un individu. Ce peut être
 utilisé dans plusieurs domaines comme le marketing, pour déterminer les zones
 les plus attirantes sur un support, une affiche publicitaire par exemple.
 
@@ -133,7 +133,8 @@ Donc pour les deux études concernées, j'ai eu les résultats suivants : pour
 la première, j'ai la carte des points de fixations suivante. C'est un peu petit
 mais on peut voir sur l'image plusieurs points indiquant que le regard s'est
 concentré à cet endroit pendant une certaine période. Il faut noter, que cette
-étude était effectué par une société tierce et que les données passées en entrée étaient prétraitées pour transformer toutes les positions brutes en des groupes
+étude était effectué par une société tierce et que les données passées en entrée
+étaient prétraitées pour transformer toutes les positions brutes en des groupes
 proches dans l'espace et dans le temps en des points de fixations.
 
 ## Slide 11
